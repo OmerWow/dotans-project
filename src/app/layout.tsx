@@ -13,8 +13,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="he-IL" dir="rtl">
-      <body>{children}</body>
+    <html lang="he-IL" dir="rtl" className="h-full">
+      <body className="h-full">{children}</body>
     </html>
   );
 }
