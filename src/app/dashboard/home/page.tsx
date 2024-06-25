@@ -1,18 +1,33 @@
+import PageLink from "@/components/PageLink";
 import { getAllUsers } from "./actions";
+import { CalendarDaysIcon, CurrencyDollarIcon, UserGroupIcon, UserIcon } from "@heroicons/react/24/outline";
 
 export default async function Home() {
   const users = await getAllUsers();
 
+  const navigation = [
+    { name: "אירועים", href: "/dashboard/events", description: "צפה בכל האירועים", Icon: CalendarDaysIcon },
+    { name: "מתנדבים", href: "/dashboard/volunteers", description: "צפה בכל המתנדבים", Icon: UserIcon },
+    { name: "משפחות", href: "/dashboard/families", description: "צפה בכל המשפחות", Icon: UserGroupIcon },
+    { name: "תורמים", href: "#", description: "צפה בכל התורמים", Icon: CurrencyDollarIcon },
+  ];
+
   return (
     <main>
-      Dashboard Home!
-      <div>
-        <h2>Users</h2>
-        <ul>
-          { users.map((user) => (
-            <li key={ user.id }>{ user.firstName }</li>
-          )) }
-        </ul>
+      <div className="md:grid grid-cols-2 gap-4 space-y-4 md:space-y-0">
+        { navigation.map((nav) => {
+          const { name, href, description, Icon } = nav;
+
+          return (
+            <PageLink
+              key={ nav.name }
+              name={ name }
+              href={ href }
+              description={ description }
+              Icon={ Icon }
+            />
+          );
+        }) }
       </div>
     </main>
   );

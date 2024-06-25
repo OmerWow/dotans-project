@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: ReactNode;
 }>) {
   return (
-    <div className="min-h-full">
+    <div className="min-h-full bg-gray-100">
       <header className="bg-white shadow">
         <DashboardNav />
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -18,7 +18,7 @@ export default function DashboardLayout({
       </header>
       <main>
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          {children}
+          { children }
         </div>
       </main>
     </div>
