@@ -20,7 +20,7 @@ export default async function Home() {
 
           return (
             <PageLink
-              key={ nav.name }
+              key={ name }
               name={ name }
               href={ href }
               description={ description }
