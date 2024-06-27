@@ -1,10 +1,7 @@
 import PageLink from "@/components/PageLink";
-import { getAllUsers } from "./actions";
 import { CalendarDaysIcon, CurrencyDollarIcon, UserGroupIcon, UserIcon } from "@heroicons/react/24/outline";
 
-export default async function Home() {
-  const users = await getAllUsers();
-
+export default async function HomePage() {
   const navigation = [
     { name: "אירועים", href: "/dashboard/events", description: "צפה בכל האירועים", Icon: CalendarDaysIcon },
     { name: "מתנדבים", href: "/dashboard/volunteers", description: "צפה בכל המתנדבים", Icon: UserIcon },
