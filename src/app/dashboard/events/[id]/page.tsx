@@ -9,5 +9,5 @@ export default async function EventPage({
 }) {
   const event = await getEventById(new ObjectId(params.id));
 
-  return <EventForm id={params.id} event={event} />;
+  return <EventForm id={params.id} event={JSON.stringify(event)} />;
 }
