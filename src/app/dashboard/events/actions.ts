@@ -3,6 +3,7 @@
 import { ObjectId } from "mongodb";
 import clientPromise from "../../../../lib/mongodb";
 import type { Event, EventKind, EventStatus } from "../../../../types/events";
+import { redirect } from "next/navigation";
 
 export async function getAllEvents() {
   return (await clientPromise
@@ -17,7 +18,7 @@ export async function getEventById(_id: ObjectId) {
     .findOne({ _id })) as unknown as Event;
 }
 
-export async function addOrUpdateEvent(formData: FormData) {
+export async function addOrUpdateEvent(prevState: string, formData: FormData) {
   const _id = new ObjectId(formData.get("_id") as string);
 
   const event: Event = {
@@ -30,12 +31,14 @@ export async function addOrUpdateEvent(formData: FormData) {
   };
 
   if (await getEventById(_id)) {
-    return (await clientPromise
+    await clientPromise
       .collection("events")
-      .updateOne({ _id }, { $set: event })) as unknown as Event;
+      .updateOne({ _id }, { $set: event });
+
+    return redirect("/dashboard/events");
   }
 
-  return (await clientPromise
-    .collection("events")
-    .insertOne(event)) as unknown as Event;
+  await clientPromise.collection("events").insertOne(event);
+
+  return redirect("/dashboard/events");
 }
