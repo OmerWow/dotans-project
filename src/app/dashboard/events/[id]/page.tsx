@@ -1,6 +1,17 @@
-import { addEvent } from "../actions";
+import { ObjectId } from "mongodb";
+import { addEvent, getEventById } from "../actions";
+import type { EventKind, EventStatus } from "../../../../../types/events";
 
-export default function EventPage() {
+export default async function EventPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const event = await getEventById(new ObjectId(params.id));
+
+  const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
+  const kinds: EventKind[] = ["חלוקה", "איסוף"];
+
   return (
     <form action={addEvent}>
       <div className="space-y-12">
@@ -9,7 +20,7 @@ export default function EventPage() {
             ניהול אירוע
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            פה תוכל להוסיף אירוע חדש
+            פה תוכל להוסיף אירוע חדש ולערוך אירועים קיימים
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -28,6 +39,7 @@ export default function EventPage() {
                     id="name"
                     className="block w-80 sm:w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="האירוע שלי"
+                    defaultValue={event?.name}
                   />
                 </div>
               </div>
@@ -46,11 +58,13 @@ export default function EventPage() {
                     type="datetime-local"
                     id="dateAndTime"
                     name="dateAndTime"
-                    defaultValue={new Date(
-                      new Date().getTime() + 3 * 60 * 60 * 1000,
-                    )
-                      .toISOString()
-                      .slice(0, 16)}
+                    defaultValue={
+                      event?.date
+                        ? new Date(event.date).toISOString().slice(0, 16)
+                        : new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
+                            .toISOString()
+                            .slice(0, 16)
+                    }
                     min={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()
                       .slice(0, 16)}
@@ -65,34 +79,26 @@ export default function EventPage() {
                 סוג אירוע
               </h3>
               <div className="mt-2 space-y-2">
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="distribution"
-                    name="event-kind"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="distribution"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    חלוקה
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="collection"
-                    name="event-kind"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="collection"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    איסוף
-                  </label>
-                </div>
+                {kinds.map((kind) => {
+                  return (
+                    <div className="flex items-center gap-x-3">
+                      <input
+                        id={kind}
+                        value={kind}
+                        name="event-kind"
+                        type="radio"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        defaultChecked={kind === event?.kind}
+                      />
+                      <label
+                        htmlFor={kind}
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        {kind}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -101,48 +107,26 @@ export default function EventPage() {
                 סטאטוס אירוע
               </h3>
               <div className="mt-2 space-y-2">
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="ongoing"
-                    name="event-status"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="ongoing"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    מתבצע
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="frozen"
-                    name="event-status"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="frozen"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    הוקפא
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-3">
-                  <input
-                    id="finished"
-                    name="event-status"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                  />
-                  <label
-                    htmlFor="finished"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    הסתיים
-                  </label>
-                </div>
+                {statuses.map((status) => {
+                  return (
+                    <div className="flex items-center gap-x-3">
+                      <input
+                        id={status}
+                        value={status}
+                        name="event-status"
+                        type="radio"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        defaultChecked={status === event?.status}
+                      />
+                      <label
+                        htmlFor={status}
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                      >
+                        {status}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -160,6 +144,7 @@ export default function EventPage() {
                   rows={3}
                   className="block w-80 sm:w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="הערות לאירוע"
+                  defaultValue={event?.notes}
                 />
               </div>
             </div>

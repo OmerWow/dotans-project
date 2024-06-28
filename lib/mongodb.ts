@@ -13,8 +13,6 @@ class Singleton {
     this.client = new MongoClient(uri, options);
     this.clientPromise = this.client.connect();
 
-    console.log("Successfully connected to MongoDB");
-
     if (process.env.NODE_ENV === "development") {
       _mongoClientPromise = this.clientPromise;
     }

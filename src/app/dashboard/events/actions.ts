@@ -1,5 +1,6 @@
 "use server";
 
+import { ObjectId } from "mongodb";
 import clientPromise from "../../../../lib/mongodb";
 import type { Event } from "../../../../types/events";
 
@@ -10,10 +11,10 @@ export async function getAllEvents() {
     .toArray()) as unknown as Event[];
 }
 
-export async function getEventById(id: string) {
+export async function getEventById(_id: ObjectId) {
   return (await clientPromise
     .collection("events")
-    .findOne({ id })) as unknown as Event;
+    .findOne({ _id })) as unknown as Event;
 }
 
 export async function addEvent(formData: FormData) {
