@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
-import { addEvent, getEventById } from "../actions";
+import { addOrUpdateEvent, getEventById } from "../actions";
 import type { EventKind, EventStatus } from "../../../../../types/events";
+import Link from "next/link";
 
 export default async function EventPage({
   params,
@@ -13,7 +14,7 @@ export default async function EventPage({
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
 
   return (
-    <form action={addEvent}>
+    <form action={addOrUpdateEvent}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -196,12 +197,12 @@ export default async function EventPage({
         >
           שמור
         </button>
-        <button
-          type="button"
+        <Link
+          href="/dashboard/events"
           className="text-sm font-semibold leading-6 text-gray-900"
         >
           ביטול
-        </button>
+        </Link>
       </div>
     </form>
   );

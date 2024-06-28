@@ -17,17 +17,23 @@ export async function getEventById(_id: ObjectId) {
     .findOne({ _id })) as unknown as Event;
 }
 
-export async function addEvent(formData: FormData) {
-  console.log("formData", formData);
+export async function addOrUpdateEvent(formData: FormData) {
+  const _id = new ObjectId(formData.get("_id") as string);
 
   const event: Event = {
-    _id: new ObjectId(formData.get("_id") as string),
+    _id,
     name: formData.get("name") as string,
     date: new Date(formData.get("dateAndTime") as string),
     kind: formData.get("eventKind") as EventKind,
     status: formData.get("eventStatus") as EventStatus,
     notes: formData.get("notes") as string,
   };
+
+  if (await getEventById(_id)) {
+    return (await clientPromise
+      .collection("events")
+      .updateOne({ _id }, { $set: event })) as unknown as Event;
+  }
 
   return (await clientPromise
     .collection("events")
