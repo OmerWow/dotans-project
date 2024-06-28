@@ -1,5 +1,5 @@
 export type Event = {
-  _id: string;
+  _id: ObjectId;
   name: string;
   date: Date;
   kind: EventKind;

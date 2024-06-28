@@ -76,7 +76,7 @@ export default async function EventsPage() {
                       {event.date.toLocaleString("he-IL")}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {event.notes}
+                      {event.notes || "אין הערות"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {event.kind}

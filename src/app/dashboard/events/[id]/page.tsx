@@ -23,6 +23,14 @@ export default async function EventPage({
             פה תוכל להוסיף אירוע חדש ולערוך אירועים קיימים
           </p>
 
+          <input
+            type="text"
+            name="_id"
+            id="_id"
+            className="sr-only"
+            value={params.id}
+          />
+
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label
@@ -34,6 +42,7 @@ export default async function EventPage({
               <div className="mt-2">
                 <div className="flex w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
+                    required
                     type="text"
                     name="name"
                     id="name"
@@ -55,6 +64,7 @@ export default async function EventPage({
               <div className="mt-2">
                 <div className="flex w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
+                    required
                     type="datetime-local"
                     id="dateAndTime"
                     name="dateAndTime"
@@ -81,11 +91,12 @@ export default async function EventPage({
               <div className="mt-2 space-y-2">
                 {kinds.map((kind) => {
                   return (
-                    <div className="flex items-center gap-x-3">
+                    <div key={kind} className="flex items-center gap-x-3">
                       <input
+                        required
                         id={kind}
                         value={kind}
-                        name="event-kind"
+                        name="eventKind"
                         type="radio"
                         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                         defaultChecked={kind === event?.kind}
@@ -109,11 +120,12 @@ export default async function EventPage({
               <div className="mt-2 space-y-2">
                 {statuses.map((status) => {
                   return (
-                    <div className="flex items-center gap-x-3">
+                    <div key={status} className="flex items-center gap-x-3">
                       <input
+                        required
                         id={status}
                         value={status}
-                        name="event-status"
+                        name="eventStatus"
                         type="radio"
                         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                         defaultChecked={status === event?.status}
