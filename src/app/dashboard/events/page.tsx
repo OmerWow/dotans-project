@@ -68,7 +68,7 @@ export default async function EventsPage() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {events.map((event) => (
-                  <tr key={event._id}>
+                  <tr key={event._id.toString()}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                       {event.name}
                     </td>

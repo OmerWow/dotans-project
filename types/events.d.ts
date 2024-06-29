@@ -1,3 +1,5 @@
+import type { ObjectId } from "mongodb";
+
 export type Event = {
   _id: ObjectId;
   name: string;
