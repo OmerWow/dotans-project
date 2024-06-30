@@ -5,11 +5,17 @@ import { EventKind, EventStatus } from "../../types/events";
 import type { Event } from "../../types/events";
 import { useActionState } from "react";
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
+import { Volunteer } from "../../types/volunteers";
 
-export default function EventForm({ id, event }: EventFormProps) {
+export default function EventForm({
+  id,
+  event,
+  allVolunteers,
+}: EventFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateEvent, "");
 
   const currentEvent: Event = JSON.parse(event);
+  const volunteers: Volunteer[] = JSON.parse(allVolunteers);
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
@@ -166,30 +172,85 @@ export default function EventForm({ id, event }: EventFormProps) {
           </div>
         </div>
 
-        {/* <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold leading-7 text-gray-900">הוספת אנשים</h2>
-                    <p className="mt-1 text-sm leading-6 text-gray-600">פה תוכל להוסיף אנשים לאירוע</p>
+        <div className="border-b border-gray-900/10 pb-12">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">
+            הוספת אנשים
+          </h2>
+          <p className="mt-1 text-sm leading-6 text-gray-600">
+            פה תוכל להוסיף אנשים לאירוע
+          </p>
 
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div className="sm:col-span-3">
-                            <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                מתנדבים
-                            </label>
-                            <div className="mt-2">
-                                <select
-                                    id="country"
-                                    name="country"
-                                    autoComplete="country-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                >
-                                    <option>United States</option>
-                                    <option>Canada</option>
-                                    <option>Mexico</option>
-                                </select>
-                            </div>
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              {/* <label
+                htmlFor="country"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                מתנדבים
+              </label>
+              <div className="mt-2">
+                <select
+                  id="volunteers"
+                  name="volunteers"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  {volunteers.map((volunteer) => {
+                    return (
+                      <option
+                        key={volunteer._id.toString()}
+                        value={volunteer._id.toString()}
+                      >
+                        {volunteer.firstName} {volunteer.lastName}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div> */}
+              <fieldset>
+                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                  מתנדבים
+                </legend>
+                <div className="mt-2 space-y-5">
+                  {volunteers.map((volunteer) => {
+                    return (
+                      <div
+                        key={volunteer._id.toString()}
+                        className="relative flex items-start"
+                      >
+                        <div className="flex h-6 items-center">
+                          <input
+                            type="checkbox"
+                            id="volunteers"
+                            name="volunteers"
+                            value={volunteer._id.toString()}
+                            defaultChecked={currentEvent?.volunteers.includes(
+                              volunteer._id,
+                            )}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          />
                         </div>
-                    </div>
-                </div> */}
+                        <div className="mr-3 text-sm leading-6">
+                          <label
+                            htmlFor="volunteers"
+                            className="font-medium text-gray-900"
+                          >
+                            {volunteer.firstName} {volunteer.lastName}
+                          </label>{" "}
+                          <span
+                            id="volunteer-preference"
+                            className="text-gray-500"
+                          >
+                            {volunteer.preference}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="mt-6 flex items-center justify-start gap-x-6">
@@ -214,4 +275,5 @@ export default function EventForm({ id, event }: EventFormProps) {
 type EventFormProps = {
   id: string;
   event: string;
+  allVolunteers: string;
 };

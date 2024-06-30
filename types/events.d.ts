@@ -7,8 +7,7 @@ export type Event = {
   kind: EventKind;
   status: EventStatus;
   notes: string;
-  // volunteers: Volunteer[];
-  // families: Family[];
+  volunteers: ObjectId[];
 };
 
 export type EventStatus = "מתבצע" | "הוקפא" | "הסתיים";
