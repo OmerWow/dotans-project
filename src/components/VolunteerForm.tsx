@@ -1,9 +1,10 @@
 "use client";
 
+import { addOrUpdateVolunteer } from "@/app/dashboard/volunteers/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { addOrUpdateVolunteer } from "@/app/dashboard/volunteers/actions";
-import { Gender, Volunteer, VolunteerPreference } from "../../types/volunteers";
+import { Gender } from "../../types/genders";
+import { Volunteer, VolunteerPreference } from "../../types/volunteers";
 
 export default function VolunteerForm({ id, volunteer }: VolunteerFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateVolunteer, "");

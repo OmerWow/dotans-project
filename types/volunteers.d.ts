@@ -1,4 +1,5 @@
 import type { ObjectId } from "mongodb";
+import { Gender } from "./genders";
 
 export type Volunteer = {
   _id: ObjectId;
@@ -11,7 +12,5 @@ export type Volunteer = {
   address: string;
   preference: VolunteerPreference;
 };
-
-export type Gender = "זכר" | "נקבה" | "אחר";
 
 export type VolunteerPreference = "נהג" | "אריזה" | "חלוקה";
