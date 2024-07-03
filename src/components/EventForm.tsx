@@ -1,21 +1,24 @@
 "use client";
 
-import Link from "next/link";
-import { EventKind, EventStatus } from "../../types/events";
-import type { Event } from "../../types/events";
-import { useActionState } from "react";
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
+import Link from "next/link";
+import { useActionState } from "react";
+import type { Event } from "../../types/events";
+import { EventKind, EventStatus } from "../../types/events";
+import { Family } from "../../types/families";
 import { Volunteer } from "../../types/volunteers";
 
 export default function EventForm({
   id,
   event,
   allVolunteers,
+  allFamilies,
 }: EventFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateEvent, "");
 
   const currentEvent: Event = JSON.parse(event);
   const volunteers: Volunteer[] = JSON.parse(allVolunteers);
+  const families: Family[] = JSON.parse(allFamilies);
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
@@ -199,7 +202,7 @@ export default function EventForm({
                             id="volunteers"
                             name="volunteers"
                             value={volunteer._id.toString()}
-                            defaultChecked={currentEvent?.volunteers.includes(
+                            defaultChecked={currentEvent?.volunteers?.includes(
                               volunteer._id,
                             )}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -217,6 +220,53 @@ export default function EventForm({
                             className="text-gray-500"
                           >
                             {volunteer.preference}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <fieldset>
+                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                  משפחות
+                </legend>
+                <div className="mt-2 space-y-5">
+                  {families.map((family) => {
+                    return (
+                      <div
+                        key={family._id.toString()}
+                        className="relative flex items-start"
+                      >
+                        <div className="flex h-6 items-center">
+                          <input
+                            type="checkbox"
+                            id="families"
+                            name="families"
+                            value={family._id.toString()}
+                            defaultChecked={currentEvent?.families?.includes(
+                              family._id,
+                            )}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          />
+                        </div>
+                        <div className="mr-3 text-sm leading-6">
+                          <label
+                            htmlFor="families"
+                            className="font-medium text-gray-900"
+                          >
+                            משפחת {family.contact.lastName}
+                          </label>{" "}
+                          <span
+                            id="family-number-of-people"
+                            className="text-gray-500"
+                          >
+                            {family.numberOfPeople} נפשות
                           </span>
                         </div>
                       </div>
@@ -252,4 +302,5 @@ type EventFormProps = {
   id: string;
   event: string;
   allVolunteers: string;
+  allFamilies: string;
 };

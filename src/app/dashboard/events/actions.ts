@@ -29,6 +29,7 @@ export async function addOrUpdateEvent(prevState: string, formData: FormData) {
     status: formData.get("eventStatus") as EventStatus,
     notes: formData.get("notes") as string,
     volunteers: formData.getAll("volunteers") as unknown as ObjectId[],
+    families: formData.getAll("families") as unknown as ObjectId[],
   };
 
   if (await getEventById(_id)) {

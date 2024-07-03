@@ -8,6 +8,7 @@ export type Event = {
   status: EventStatus;
   notes: string;
   volunteers: ObjectId[];
+  families: ObjectId[];
 };
 
 export type EventStatus = "מתבצע" | "הוקפא" | "הסתיים";
