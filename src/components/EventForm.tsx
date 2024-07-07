@@ -38,7 +38,7 @@ export default function EventForm({
             type="text"
             name="_id"
             id="_id"
-            className="sr-only"
+            className="hidden"
             value={id}
             readOnly
           />
@@ -84,8 +84,8 @@ export default function EventForm({
                       currentEvent?.date
                         ? new Date(currentEvent.date).toISOString().slice(0, 16)
                         : new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
-                            .toISOString()
-                            .slice(0, 16)
+                          .toISOString()
+                          .slice(0, 16)
                     }
                     min={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()

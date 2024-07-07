@@ -29,7 +29,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             type="text"
             name="_id"
             id="_id"
-            className="sr-only"
+            className="hidden"
             value={id}
             readOnly
           />

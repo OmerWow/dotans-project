@@ -29,7 +29,7 @@ export default function VolunteerForm({ id, volunteer }: VolunteerFormProps) {
             type="text"
             name="_id"
             id="_id"
-            className="sr-only"
+            className="hidden"
             value={id}
             readOnly
           />
