@@ -107,12 +107,9 @@ export default async function DonatorsPage() {
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {donator.birthDate.toLocaleString("he-IL", {
-                        weekday: "long",
                         year: "numeric",
                         month: "long",
                         day: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
                       })}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">

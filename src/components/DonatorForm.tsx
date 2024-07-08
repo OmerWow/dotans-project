@@ -159,6 +159,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                     max={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()
                       .slice(0, 16)}
+                    step={86400}
                     className="flex border-none w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
                   />
                 </div>
