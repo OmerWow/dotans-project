@@ -26,7 +26,7 @@ const navigation = [
   { name: "אירועים", href: "/dashboard/events" },
   { name: "מתנדבים", href: "/dashboard/volunteers" },
   { name: "משפחות", href: "/dashboard/families" },
-  { name: "תורמים", href: "#" },
+  { name: "תורמים", href: "/dashboard/donators" },
 ];
 
 const userNavigation = [
