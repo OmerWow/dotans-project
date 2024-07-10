@@ -3,6 +3,7 @@
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
 import Link from "next/link";
 import { useActionState } from "react";
+import { Donator } from "../../types/donator";
 import type { Event } from "../../types/events";
 import { EventKind, EventStatus } from "../../types/events";
 import { Family } from "../../types/families";
@@ -13,12 +14,14 @@ export default function EventForm({
   event,
   allVolunteers,
   allFamilies,
+  allDonators,
 }: EventFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateEvent, "");
 
   const currentEvent: Event = JSON.parse(event);
   const volunteers: Volunteer[] = JSON.parse(allVolunteers);
   const families: Family[] = JSON.parse(allFamilies);
+  const donators: Donator[] = JSON.parse(allDonators);
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
@@ -84,8 +87,8 @@ export default function EventForm({
                       currentEvent?.date
                         ? new Date(currentEvent.date).toISOString().slice(0, 16)
                         : new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
-                          .toISOString()
-                          .slice(0, 16)
+                            .toISOString()
+                            .slice(0, 16)
                     }
                     min={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()
@@ -276,6 +279,50 @@ export default function EventForm({
               </fieldset>
             </div>
           </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <fieldset>
+                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                  תורמים
+                </legend>
+                <div className="mt-2 space-y-5">
+                  {donators.map((donator) => {
+                    return (
+                      <div
+                        key={donator._id.toString()}
+                        className="relative flex items-start"
+                      >
+                        <div className="flex h-6 items-center">
+                          <input
+                            type="checkbox"
+                            id="donators"
+                            name="donators"
+                            value={donator._id.toString()}
+                            defaultChecked={currentEvent?.donators?.includes(
+                              donator._id,
+                            )}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          />
+                        </div>
+                        <div className="mr-3 text-sm leading-6">
+                          <label
+                            htmlFor="donators"
+                            className="font-medium text-gray-900"
+                          >
+                            {donator.firstName} {donator.lastName}
+                          </label>{" "}
+                          <span id="donation-type" className="text-gray-500">
+                            {donator.donationType}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -303,4 +350,5 @@ type EventFormProps = {
   event: string;
   allVolunteers: string;
   allFamilies: string;
+  allDonators: string;
 };

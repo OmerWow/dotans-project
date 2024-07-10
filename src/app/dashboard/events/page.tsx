@@ -73,6 +73,12 @@ export default async function EventsPage() {
                   >
                     משפחות
                   </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
+                  >
+                    תורמים
+                  </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">ערוך</span>
                   </th>
@@ -108,6 +114,9 @@ export default async function EventsPage() {
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {event.families?.length || 0}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {event.donators?.length || 0}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <Link

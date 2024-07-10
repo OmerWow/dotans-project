@@ -9,6 +9,7 @@ export type Event = {
   notes: string;
   volunteers: ObjectId[];
   families: ObjectId[];
+  donators: ObjectId[];
 };
 
 export type EventStatus = "מתבצע" | "הוקפא" | "הסתיים";
