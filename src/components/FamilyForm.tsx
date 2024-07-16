@@ -162,7 +162,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                     id="familiarWithWelfare"
                     value="yes"
                     name="familiarWithWelfare"
-                    type="checkbox"
+                    type="radio"
                     className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     defaultChecked={currentFamily?.familiarWithWelfare}
                   />
@@ -171,6 +171,22 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     כן
+                  </label>
+                </div>
+                <div className="flex items-center gap-x-3">
+                  <input
+                    id="familiarWithWelfare"
+                    value="no"
+                    name="familiarWithWelfare"
+                    type="radio"
+                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    defaultChecked={!currentFamily?.familiarWithWelfare}
+                  />
+                  <label
+                    htmlFor="familiarWithWelfare"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    לא
                   </label>
                 </div>
               </div>
