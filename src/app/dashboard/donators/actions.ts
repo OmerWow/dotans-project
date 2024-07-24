@@ -35,6 +35,7 @@ export async function addOrUpdateDonator(
     address: formData.get("address") as string,
     phone: formData.get("phone") as string,
     email: formData.get("email") as string,
+    notes: formData.get("notes") as string,
     donationType: formData.get("donationType") as Donation,
   };
 

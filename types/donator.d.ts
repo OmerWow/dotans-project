@@ -11,6 +11,7 @@ export type Donator = {
   address: string;
   phone: string;
   email: string;
+  notes: string;
   donationType: Donation;
 };
 

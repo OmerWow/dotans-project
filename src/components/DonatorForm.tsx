@@ -150,11 +150,11 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                     defaultValue={
                       currentDonator?.birthDate
                         ? new Date(currentDonator.birthDate)
-                            .toISOString()
-                            .slice(0, 16)
+                          .toISOString()
+                          .slice(0, 16)
                         : new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
-                            .toISOString()
-                            .slice(0, 16)
+                          .toISOString()
+                          .slice(0, 16)
                     }
                     max={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()
@@ -226,6 +226,25 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                     className="flex border-none w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
                   />
                 </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="notes"
+                className="block text-sm font-medium text-gray-900 leading-6"
+              >
+                הערות נוספות
+              </label>
+              <div className="mt-2">
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={3}
+                  className="block w-80 sm:w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="הערות נוספות"
+                  defaultValue={currentDonator?.notes}
+                />
               </div>
             </div>
 
