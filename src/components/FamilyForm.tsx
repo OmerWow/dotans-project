@@ -17,11 +17,11 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
   return (
     <form action={action}>
       <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="pb-12 border-b border-gray-900/10">
+          <h2 className="text-base font-semibold text-gray-900 leading-7">
             ניהול משפחות
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 leading-6">
             פה תוכל להוסיף משפחה חדשה ולערוך משפחות קיימות
           </p>
 
@@ -38,7 +38,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="numberOfPeople"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 מספר נפשות
               </label>
@@ -61,7 +61,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 טלפון
               </label>
@@ -82,7 +82,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 אימייל
               </label>
@@ -103,7 +103,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="address"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 כתובת
               </label>
@@ -122,7 +122,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 העדפת המשפחה
               </h3>
               <div className="mt-2 space-y-2">
@@ -135,14 +135,14 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                         value={preference}
                         name="preference"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={
                           preference === currentFamily?.preference
                         }
                       />
                       <label
                         htmlFor={preference}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {preference}
                       </label>
@@ -153,7 +153,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 האם המשפחה מוכרת לרווחה?
               </h3>
               <div className="mt-2 space-y-2">
@@ -163,12 +163,12 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                     value="yes"
                     name="familiarWithWelfare"
                     type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                     defaultChecked={currentFamily?.familiarWithWelfare}
                   />
                   <label
                     htmlFor="familiarWithWelfare"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium text-gray-900 leading-6"
                   >
                     כן
                   </label>
@@ -179,12 +179,12 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                     value="no"
                     name="familiarWithWelfare"
                     type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                     defaultChecked={!currentFamily?.familiarWithWelfare}
                   />
                   <label
                     htmlFor="familiarWithWelfare"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium text-gray-900 leading-6"
                   >
                     לא
                   </label>
@@ -194,11 +194,11 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
           </div>
         </div>
 
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="pb-12 border-b border-gray-900/10">
+          <h2 className="text-base font-semibold text-gray-900 leading-7">
             איש קשר
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 leading-6">
             פרטי איש הקשר של המשפחה
           </p>
 
@@ -206,7 +206,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="contactIdNumber"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 תעודת זהות
               </label>
@@ -228,7 +228,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="contactFirstName"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 שם פרטי
               </label>
@@ -249,7 +249,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="contactLastName"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 שם משפחה
               </label>
@@ -268,7 +268,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 מין
               </h3>
               <div className="mt-2 space-y-2">
@@ -281,14 +281,14 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                         value={gender}
                         name="contactGender"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={
                           gender === currentFamily?.contact.gender
                         }
                       />
                       <label
                         htmlFor={gender}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {gender}
                       </label>
@@ -301,7 +301,7 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="contactBirthDate"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 יום הולדת
               </label>
@@ -334,17 +334,17 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-start gap-x-6">
+      <div className="flex items-center justify-start mt-6 gap-x-6">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
+          className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
         >
           {isPending ? "שומר..." : "שמור"}
         </button>
         <Link
           href="/dashboard/families"
-          className="text-sm font-semibold leading-6 text-gray-900"
+          className="text-sm font-semibold text-gray-900 leading-6"
         >
           ביטול
         </Link>

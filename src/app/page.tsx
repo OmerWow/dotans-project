@@ -7,9 +7,9 @@ export default function SignInPage() {
   const [error, action, isPending] = useActionState(LogUserIn, "");
 
   return (
-    <div className="flex h-screen flex-1 flex-col justify-center place-items-center px-6 py-12 lg:px-8">
+    <div className="flex flex-col justify-center flex-1 h-screen px-6 py-12 place-items-center lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-2xl font-bold tracking-tight text-center text-gray-900 leading-9">
           התחבר לחשבונך
         </h2>
       </div>
@@ -19,7 +19,7 @@ export default function SignInPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium text-gray-900 leading-6"
             >
               כתובת אימייל
             </label>
@@ -38,7 +38,7 @@ export default function SignInPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium text-gray-900 leading-6"
             >
               סיסמא
             </label>

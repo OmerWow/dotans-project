@@ -22,11 +22,11 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
   return (
     <form action={action}>
       <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="pb-12 border-b border-gray-900/10">
+          <h2 className="text-base font-semibold text-gray-900 leading-7">
             ניהול תורמים
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 leading-6">
             פה תוכל להוסיף תורם חדש ולערוך תורמים קיימים
           </p>
 
@@ -43,7 +43,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="idNumber"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 תעודת זהות
               </label>
@@ -65,7 +65,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="firstName"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 שם פרטי
               </label>
@@ -86,7 +86,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="lastName"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 שם משפחה
               </label>
@@ -105,7 +105,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 מין
               </h3>
               <div className="mt-2 space-y-2">
@@ -118,12 +118,12 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                         value={gender}
                         name="gender"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={gender === currentDonator?.gender}
                       />
                       <label
                         htmlFor={gender}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {gender}
                       </label>
@@ -136,7 +136,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="birthDate"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 יום הולדת
               </label>
@@ -169,7 +169,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="address"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 כתובת
               </label>
@@ -190,7 +190,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 טלפון
               </label>
@@ -211,7 +211,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 אימייל
               </label>
@@ -230,7 +230,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 סוג תרומה
               </h3>
               <div className="mt-2 space-y-2">
@@ -243,14 +243,14 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                         value={donation}
                         name="donationType"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={
                           donation === currentDonator?.donationType
                         }
                       />
                       <label
                         htmlFor={donation}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {donation}
                       </label>
@@ -263,17 +263,17 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-start gap-x-6">
+      <div className="flex items-center justify-start mt-6 gap-x-6">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
+          className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
         >
           {isPending ? "שומר..." : "שמור"}
         </button>
         <Link
           href="/dashboard/donators"
-          className="text-sm font-semibold leading-6 text-gray-900"
+          className="text-sm font-semibold text-gray-900 leading-6"
         >
           ביטול
         </Link>

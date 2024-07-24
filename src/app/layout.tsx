@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he-IL" dir="rtl" className="h-full">
-      <body className="h-full">{ children }</body>
+      <body className="h-full">{children}</body>
     </html>
   );
 }

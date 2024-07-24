@@ -36,7 +36,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <div className="md:grid grid-cols-2 gap-4 space-y-4 md:space-y-0">
+      <div className="grid-cols-2 gap-4 space-y-4 md:grid md:space-y-0">
         {navigation.map((nav) => {
           const { name, href, description, Icon } = nav;
 

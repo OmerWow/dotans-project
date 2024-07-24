@@ -29,11 +29,11 @@ export default function EventForm({
   return (
     <form action={action}>
       <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="pb-12 border-b border-gray-900/10">
+          <h2 className="text-base font-semibold text-gray-900 leading-7">
             ניהול אירוע
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 leading-6">
             פה תוכל להוסיף אירוע חדש ולערוך אירועים קיימים
           </p>
 
@@ -50,12 +50,12 @@ export default function EventForm({
             <div className="sm:col-span-4">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 שם האירוע
               </label>
               <div className="mt-2">
-                <div className="flex w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className="flex rounded-md shadow-sm w-80 sm:w-96 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     required
                     type="text"
@@ -72,12 +72,12 @@ export default function EventForm({
             <div className="sm:col-span-4">
               <label
                 htmlFor="dateAndTime"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 תאריך ושעה
               </label>
               <div className="mt-2">
-                <div className="flex w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className="flex rounded-md shadow-sm w-80 sm:w-96 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     required
                     type="datetime-local"
@@ -93,14 +93,14 @@ export default function EventForm({
                     min={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()
                       .slice(0, 16)}
-                    className="flex border-none w-80 sm:w-96 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+                    className="flex border-none rounded-md shadow-sm w-80 sm:w-96 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
                   />
                 </div>
               </div>
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 סוג אירוע
               </h3>
               <div className="mt-2 space-y-2">
@@ -113,12 +113,12 @@ export default function EventForm({
                         value={kind}
                         name="eventKind"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={kind === currentEvent?.kind}
                       />
                       <label
                         htmlFor={kind}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {kind}
                       </label>
@@ -129,7 +129,7 @@ export default function EventForm({
             </div>
 
             <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium leading-6 text-gray-900">
+              <h3 className="block text-sm font-medium text-gray-900 leading-6">
                 סטאטוס אירוע
               </h3>
               <div className="mt-2 space-y-2">
@@ -142,12 +142,12 @@ export default function EventForm({
                         value={status}
                         name="eventStatus"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
                         defaultChecked={status === currentEvent?.status}
                       />
                       <label
                         htmlFor={status}
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium text-gray-900 leading-6"
                       >
                         {status}
                       </label>
@@ -160,7 +160,7 @@ export default function EventForm({
             <div className="sm:col-span-4">
               <label
                 htmlFor="notes"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900 leading-6"
               >
                 הערות לאירוע
               </label>
@@ -178,18 +178,18 @@ export default function EventForm({
           </div>
         </div>
 
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="pb-12 border-b border-gray-900/10">
+          <h2 className="text-base font-semibold text-gray-900 leading-7">
             הוספת אנשים
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm text-gray-600 leading-6">
             פה תוכל להוסיף אנשים לאירוע
           </p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <fieldset>
-                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                <legend className="block text-sm font-medium text-gray-900 leading-6">
                   מתנדבים
                 </legend>
                 <div className="mt-2 space-y-5">
@@ -199,7 +199,7 @@ export default function EventForm({
                         key={volunteer._id.toString()}
                         className="relative flex items-start"
                       >
-                        <div className="flex h-6 items-center">
+                        <div className="flex items-center h-6">
                           <input
                             type="checkbox"
                             id="volunteers"
@@ -208,7 +208,7 @@ export default function EventForm({
                             defaultChecked={currentEvent?.volunteers?.includes(
                               volunteer._id,
                             )}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                           />
                         </div>
                         <div className="mr-3 text-sm leading-6">
@@ -236,7 +236,7 @@ export default function EventForm({
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <fieldset>
-                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                <legend className="block text-sm font-medium text-gray-900 leading-6">
                   משפחות
                 </legend>
                 <div className="mt-2 space-y-5">
@@ -246,7 +246,7 @@ export default function EventForm({
                         key={family._id.toString()}
                         className="relative flex items-start"
                       >
-                        <div className="flex h-6 items-center">
+                        <div className="flex items-center h-6">
                           <input
                             type="checkbox"
                             id="families"
@@ -255,7 +255,7 @@ export default function EventForm({
                             defaultChecked={currentEvent?.families?.includes(
                               family._id,
                             )}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                           />
                         </div>
                         <div className="mr-3 text-sm leading-6">
@@ -283,7 +283,7 @@ export default function EventForm({
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
               <fieldset>
-                <legend className="block text-sm font-medium leading-6 text-gray-900">
+                <legend className="block text-sm font-medium text-gray-900 leading-6">
                   תורמים
                 </legend>
                 <div className="mt-2 space-y-5">
@@ -293,7 +293,7 @@ export default function EventForm({
                         key={donator._id.toString()}
                         className="relative flex items-start"
                       >
-                        <div className="flex h-6 items-center">
+                        <div className="flex items-center h-6">
                           <input
                             type="checkbox"
                             id="donators"
@@ -302,7 +302,7 @@ export default function EventForm({
                             defaultChecked={currentEvent?.donators?.includes(
                               donator._id,
                             )}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                           />
                         </div>
                         <div className="mr-3 text-sm leading-6">
@@ -326,17 +326,17 @@ export default function EventForm({
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-start gap-x-6">
+      <div className="flex items-center justify-start mt-6 gap-x-6">
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
+          className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-500 disabled:cursor-not-allowed disabled:text-gray-50"
         >
           {isPending ? "שומר..." : "שמור"}
         </button>
         <Link
           href="/dashboard/events"
-          className="text-sm font-semibold leading-6 text-gray-900"
+          className="text-sm font-semibold text-gray-900 leading-6"
         >
           ביטול
         </Link>
