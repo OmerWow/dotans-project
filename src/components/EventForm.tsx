@@ -8,6 +8,7 @@ import type { Event } from "../../types/events";
 import { EventKind, EventStatus } from "../../types/events";
 import { Family } from "../../types/families";
 import { Volunteer } from "../../types/volunteers";
+import SelectMenu from "./SelectMenu";
 
 export default function EventForm({
   id,
@@ -130,7 +131,7 @@ export default function EventForm({
 
             <div className="sm:col-span-4">
               <h3 className="block text-sm font-medium text-gray-900 leading-6">
-                סטאטוס אירוע
+                סטטוס אירוע
               </h3>
               <div className="mt-2 space-y-2">
                 {statuses.map((status) => {
@@ -192,43 +193,21 @@ export default function EventForm({
                 <legend className="block text-sm font-medium text-gray-900 leading-6">
                   מתנדבים
                 </legend>
-                <div className="mt-2 space-y-5">
-                  {volunteers.map((volunteer) => {
-                    return (
-                      <div
-                        key={volunteer._id.toString()}
-                        className="relative flex items-start"
-                      >
-                        <div className="flex items-center h-6">
-                          <input
-                            type="checkbox"
-                            id="volunteers"
-                            name="volunteers"
-                            value={volunteer._id.toString()}
-                            defaultChecked={currentEvent?.volunteers?.includes(
-                              volunteer._id,
-                            )}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
-                          />
-                        </div>
-                        <div className="mr-3 text-sm leading-6">
-                          <label
-                            htmlFor="volunteers"
-                            className="font-medium text-gray-900"
-                          >
-                            {volunteer.firstName} {volunteer.lastName}
-                          </label>{" "}
-                          <span
-                            id="volunteer-preference"
-                            className="text-gray-500"
-                          >
-                            {volunteer.preference}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <SelectMenu
+                  people={volunteers.filter((volunteer) => !currentEvent.volunteers.includes(volunteer._id))}
+                />
+                <ol className='list-inside list-decimal mt-2'>
+                  {volunteers
+                    .filter((volunteer) => currentEvent.volunteers.includes(volunteer._id))
+                    .map((volunteer) => (
+                      <li key={volunteer._id.toString()}>
+                        {volunteer.firstName} {volunteer.lastName}
+                        <span className="mr-2 truncate text-gray-500 group-data-[focus]:text-indigo-200">
+                          {volunteer.preference}
+                        </span>
+                      </li>
+                    ))}
+                </ol>
               </fieldset>
             </div>
           </div>
