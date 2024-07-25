@@ -5,9 +5,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import type { Volunteer } from '../../types/volunteers';
 
-const getDisplayValue = (person: Volunteer) => `${person.firstName} ${person.lastName}`;
-
-export default function SelectMenu({ people }: SelectMenuProps) {
+export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
     const [query, setQuery] = useState('');
     const [selectedPerson, setSelectedPerson] = useState<Volunteer | null>(people[0] || null);
 
@@ -26,6 +24,7 @@ export default function SelectMenu({ people }: SelectMenuProps) {
             onChange={(person) => {
                 setQuery('');
                 setSelectedPerson(person);
+                handleSelect(person!);
             }}
         >
             <Label className="block text-sm  leading-6 text-gray-600">בחר מתנדב על מנת להוסיף אותו לאירוע</Label>
@@ -34,7 +33,7 @@ export default function SelectMenu({ people }: SelectMenuProps) {
                     className="w-96 rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={(event) => setQuery(event.target.value)}
                     onBlur={() => setQuery('')}
-                    displayValue={(person: Volunteer | null) => person ? getDisplayValue(person) : getDisplayValue(people[0])}
+                    displayValue={(person: Volunteer | null) => person ? `${person.firstName} ${person.lastName}` : "לא נשארו מתנדבים לבחור"}
                 />
                 <ComboboxButton className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -69,4 +68,5 @@ export default function SelectMenu({ people }: SelectMenuProps) {
 
 type SelectMenuProps = {
     people: Volunteer[];
+    handleSelect: (person: Volunteer) => void;
 };

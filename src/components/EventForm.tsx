@@ -2,13 +2,14 @@
 
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { Donator } from "../../types/donator";
 import type { Event } from "../../types/events";
 import { EventKind, EventStatus } from "../../types/events";
 import { Family } from "../../types/families";
 import { Volunteer } from "../../types/volunteers";
 import SelectMenu from "./SelectMenu";
+import type { ObjectId } from "mongodb";
 
 export default function EventForm({
   id,
@@ -24,8 +25,17 @@ export default function EventForm({
   const families: Family[] = JSON.parse(allFamilies);
   const donators: Donator[] = JSON.parse(allDonators);
 
+  const [selectedVolunteers, setSelectedVolunteers] = useState<Volunteer[]>(volunteers.filter((volunteer) => currentEvent.volunteers.includes(volunteer._id)));
+
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
+
+  const handleSelect = (volunteer: Volunteer) => {
+    const selectedVolunteer = volunteers.find(vol => vol._id === volunteer?._id);
+    if (selectedVolunteer && !selectedVolunteers.includes(selectedVolunteer)) {
+      setSelectedVolunteers([...selectedVolunteers, selectedVolunteer]);
+    }
+  };
 
   return (
     <form action={action}>
@@ -195,10 +205,10 @@ export default function EventForm({
                 </legend>
                 <SelectMenu
                   people={volunteers.filter((volunteer) => !currentEvent.volunteers.includes(volunteer._id))}
+                  handleSelect={handleSelect}
                 />
                 <ol className='list-inside list-decimal mt-2'>
-                  {volunteers
-                    .filter((volunteer) => currentEvent.volunteers.includes(volunteer._id))
+                  {selectedVolunteers
                     .map((volunteer) => (
                       <li key={volunteer._id.toString()}>
                         {volunteer.firstName} {volunteer.lastName}
@@ -208,6 +218,17 @@ export default function EventForm({
                       </li>
                     ))}
                 </ol>
+                {selectedVolunteers.length > 0 && (
+                  selectedVolunteers.map((volunteer) => (
+                    <input
+                      key={volunteer._id.toString()}
+                      type="hidden"
+                      name="volunteers"
+                      value={volunteer._id.toString()}
+                      readOnly
+                    />
+                  ))
+                )}
               </fieldset>
             </div>
           </div>
