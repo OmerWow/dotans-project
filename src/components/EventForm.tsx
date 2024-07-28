@@ -25,15 +25,27 @@ export default function EventForm({
   const families: Family[] = JSON.parse(allFamilies);
   const donators: Donator[] = JSON.parse(allDonators);
 
-  const [selectedVolunteers, setSelectedVolunteers] = useState<Volunteer[]>(volunteers.filter((volunteer) => currentEvent.volunteers.includes(volunteer._id)));
+  const [selectedVolunteers, setSelectedVolunteers] = useState<Volunteer[]>(
+    volunteers.filter((volunteer) => currentEvent.volunteers.includes(volunteer._id))
+  );
+  const [selectedDonators, setSelectedDonators] = useState<Donator[]>(
+    donators.filter((donator) => currentEvent.donators.includes(donator._id))
+  );
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
 
-  const handleSelect = (volunteer: Volunteer) => {
-    const selectedVolunteer = volunteers.find(vol => vol._id === volunteer?._id);
-    if (selectedVolunteer && !selectedVolunteers.includes(selectedVolunteer)) {
-      setSelectedVolunteers([...selectedVolunteers, selectedVolunteer]);
+  const handleSelect = (person: Volunteer | Donator, type: "Volunteer" | "Donator") => {
+    if (type === "Volunteer") {
+      const selectedVolunteer = volunteers.find(vol => vol._id === person._id);
+      if (selectedVolunteer && !selectedVolunteers.includes(selectedVolunteer)) {
+        setSelectedVolunteers([...selectedVolunteers, selectedVolunteer]);
+      }
+    } else {
+      const selectedDonator = donators.find(don => don._id === person._id);
+      if (selectedDonator && !selectedDonators.includes(selectedDonator)) {
+        setSelectedDonators([...selectedDonators, selectedDonator]);
+      }
     }
   };
 
@@ -206,6 +218,7 @@ export default function EventForm({
                 <SelectMenu
                   people={volunteers.filter((volunteer) => !selectedVolunteers.some((vol) => vol._id === volunteer._id))}
                   handleSelect={handleSelect}
+                  type="Volunteer"
                 />
                 <ol className='list-inside list-decimal mt-2'>
                   {selectedVolunteers
@@ -229,6 +242,47 @@ export default function EventForm({
                       type="hidden"
                       name="volunteers"
                       value={volunteer._id.toString()}
+                      readOnly
+                    />
+                  ))
+                )}
+              </fieldset>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <fieldset>
+                <legend className="block text-sm font-medium text-gray-900 leading-6">
+                  תורמים
+                </legend>
+                <SelectMenu
+                  people={donators.filter((donator) => !selectedDonators.some((don) => don._id === donator._id))}
+                  handleSelect={handleSelect}
+                  type="Donator"
+                />
+                <ol className='list-inside list-decimal mt-2'>
+                  {selectedDonators
+                    .map((donator) => (
+                      <li key={donator._id.toString()}>
+                        {donator.firstName} {donator.lastName}
+                        <span className="mr-1.5 truncate text-sm text-gray-500 group-data-[focus]:text-indigo-200">
+                          {donator.donationType}
+                        </span>
+                        <XMarkIcon
+                          className="cursor-pointer inline w-5 h-5 mr-2 text-red-500"
+                          onClick={() => setSelectedDonators(selectedDonators.filter((don) => don._id !== donator._id))}
+                        />
+                      </li>
+                    ))}
+                </ol>
+                {selectedDonators.length > 0 && (
+                  selectedDonators.map((donator) => (
+                    <input
+                      key={donator._id.toString()}
+                      type="hidden"
+                      name="donators"
+                      value={donator._id.toString()}
                       readOnly
                     />
                   ))
@@ -274,50 +328,6 @@ export default function EventForm({
                             className="text-gray-500"
                           >
                             {family.numberOfPeople} נפשות
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </fieldset>
-            </div>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-3">
-              <fieldset>
-                <legend className="block text-sm font-medium text-gray-900 leading-6">
-                  תורמים
-                </legend>
-                <div className="mt-2 space-y-5">
-                  {donators.map((donator) => {
-                    return (
-                      <div
-                        key={donator._id.toString()}
-                        className="relative flex items-start"
-                      >
-                        <div className="flex items-center h-6">
-                          <input
-                            type="checkbox"
-                            id="donators"
-                            name="donators"
-                            value={donator._id.toString()}
-                            defaultChecked={currentEvent?.donators?.includes(
-                              donator._id,
-                            )}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
-                          />
-                        </div>
-                        <div className="mr-3 text-sm leading-6">
-                          <label
-                            htmlFor="donators"
-                            className="font-medium text-gray-900"
-                          >
-                            {donator.firstName} {donator.lastName}
-                          </label>{" "}
-                          <span id="donation-type" className="text-gray-500">
-                            {donator.donationType}
                           </span>
                         </div>
                       </div>

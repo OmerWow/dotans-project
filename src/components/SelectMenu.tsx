@@ -1,13 +1,14 @@
 'use client';
 
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Label } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import type { Volunteer } from '../../types/volunteers';
+import type { Donator } from '../../types/donator';
 
-export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
+export default function SelectMenu({ people, handleSelect, type }: SelectMenuProps) {
     const [query, setQuery] = useState('');
-    const [selectedPerson, setSelectedPerson] = useState<Volunteer | null>();
+    const [selectedPerson, setSelectedPerson] = useState<Volunteer | Donator | null>();
 
     useEffect(() => {
         setSelectedPerson(people[0] || null);
@@ -17,7 +18,10 @@ export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
         query === ''
             ? people
             : people.filter((person) => {
-                const fieldsToSearch = [person.firstName, person.lastName, person.preference];
+                const fieldsToSearch = [
+                    person.firstName,
+                    person.lastName,
+                    type === "Volunteer" ? (person as Volunteer).preference : (person as Donator).donationType];
                 return fieldsToSearch.some((field) => field.toLowerCase().includes(query.toLowerCase()));
             });
 
@@ -28,16 +32,16 @@ export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
             onChange={(person) => {
                 setQuery('');
                 setSelectedPerson(person);
-                handleSelect(person as Volunteer);
+                handleSelect(person as Volunteer | Donator, type);
             }}
         >
-            <Label className="block text-sm  leading-6 text-gray-600">בחר מתנדב על מנת להוסיף אותו לאירוע</Label>
+            <Label className="block text-sm  leading-6 text-gray-600">בחר {type === "Volunteer" ? "מתנדב" : "תורם"} על מנת להוסיף אותו לאירוע</Label>
             <div className="relative mt-2">
                 <ComboboxInput
                     className="w-96 rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={(event) => setQuery(event.target.value)}
                     onBlur={() => setQuery('')}
-                    displayValue={(person: Volunteer | null) => person ? `${person.firstName} ${person.lastName}` : "לא נשארו מתנדבים"}
+                    displayValue={(person: Volunteer | null) => person ? `${person.firstName} ${person.lastName}` : `לא נשארו ${type === "Volunteer" ? "מתנדבים" : "תורמים"}`}
                 />
                 <ComboboxButton className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -54,7 +58,11 @@ export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
                                 <div className="flex">
                                     <span className="truncate group-data-[selected]:font-semibold">{person.firstName} {person.lastName}</span>
                                     <span className="mr-2 truncate text-gray-500 group-data-[focus]:text-indigo-200">
-                                        {person.preference}
+                                        {
+                                            type === "Volunteer"
+                                                ? (person as Volunteer).preference
+                                                : (person as Donator).donationType
+                                        }
                                     </span>
                                 </div>
                             </ComboboxOption>
@@ -67,6 +75,7 @@ export default function SelectMenu({ people, handleSelect }: SelectMenuProps) {
 }
 
 type SelectMenuProps = {
-    people: Volunteer[];
-    handleSelect: (person: Volunteer) => void;
+    people: Volunteer[] | Donator[];
+    handleSelect: (person: Volunteer | Donator, type: "Volunteer" | "Donator") => void;
+    type: "Volunteer" | "Donator";
 };
