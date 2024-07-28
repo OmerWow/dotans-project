@@ -9,7 +9,7 @@ import { EventKind, EventStatus } from "../../types/events";
 import { Family } from "../../types/families";
 import { Volunteer } from "../../types/volunteers";
 import SelectMenu from "./SelectMenu";
-import type { ObjectId } from "mongodb";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function EventForm({
   id,
@@ -204,7 +204,7 @@ export default function EventForm({
                   מתנדבים
                 </legend>
                 <SelectMenu
-                  people={volunteers.filter((volunteer) => !currentEvent.volunteers.includes(volunteer._id))}
+                  people={volunteers.filter((volunteer) => !selectedVolunteers.some((vol) => vol._id === volunteer._id))}
                   handleSelect={handleSelect}
                 />
                 <ol className='list-inside list-decimal mt-2'>
@@ -212,9 +212,13 @@ export default function EventForm({
                     .map((volunteer) => (
                       <li key={volunteer._id.toString()}>
                         {volunteer.firstName} {volunteer.lastName}
-                        <span className="mr-2 truncate text-gray-500 group-data-[focus]:text-indigo-200">
+                        <span className="mr-1.5 truncate text-sm text-gray-500 group-data-[focus]:text-indigo-200">
                           {volunteer.preference}
                         </span>
+                        <XMarkIcon
+                          className="cursor-pointer inline w-5 h-5 mr-2 text-red-500"
+                          onClick={() => setSelectedVolunteers(selectedVolunteers.filter((vol) => vol._id !== volunteer._id))}
+                        />
                       </li>
                     ))}
                 </ol>
