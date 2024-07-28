@@ -2,7 +2,7 @@
 
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useActionState, useState, type Dispatch, type SetStateAction } from "react";
 import { Donator } from "../../types/donator";
 import type { Event } from "../../types/events";
 import { EventKind, EventStatus } from "../../types/events";
@@ -10,6 +10,7 @@ import { Family } from "../../types/families";
 import { Volunteer } from "../../types/volunteers";
 import SelectMenu from "./SelectMenu";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import type { Person } from "../../types/person";
 
 export default function EventForm({
   id,
@@ -35,19 +36,23 @@ export default function EventForm({
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
 
-  const handleSelect = (person: Volunteer | Donator, type: "Volunteer" | "Donator") => {
-    if (type === "Volunteer") {
-      const selectedVolunteer = volunteers.find(vol => vol._id === person._id);
-      if (selectedVolunteer && !selectedVolunteers.includes(selectedVolunteer)) {
-        setSelectedVolunteers([...selectedVolunteers, selectedVolunteer]);
-      }
-    } else {
-      const selectedDonator = donators.find(don => don._id === person._id);
-      if (selectedDonator && !selectedDonators.includes(selectedDonator)) {
-        setSelectedDonators([...selectedDonators, selectedDonator]);
-      }
+  const handleSelect = <T extends Person>(
+    person: T,
+    currentSelected: T[],
+    setSelected: Dispatch<SetStateAction<T[]>>,
+    allItems: T[]
+  ) => {
+    const selectedPerson = allItems.find(item => item._id === person._id);
+    if (selectedPerson && !currentSelected.some(item => item._id === selectedPerson._id)) {
+      setSelected(prev => [...prev, selectedPerson]);
     }
   };
+
+  const handleVolunteerSelect = (person: Volunteer) =>
+    handleSelect(person, selectedVolunteers, setSelectedVolunteers, volunteers);
+
+  const handleDonatorSelect = (person: Donator) =>
+    handleSelect(person, selectedDonators, setSelectedDonators, donators);
 
   return (
     <form action={action}>
@@ -217,7 +222,7 @@ export default function EventForm({
                 </legend>
                 <SelectMenu
                   people={volunteers.filter((volunteer) => !selectedVolunteers.some((vol) => vol._id === volunteer._id))}
-                  handleSelect={handleSelect}
+                  handleSelect={handleVolunteerSelect}
                   type="Volunteer"
                 />
                 <ol className='list-inside list-decimal mt-2'>
@@ -258,7 +263,7 @@ export default function EventForm({
                 </legend>
                 <SelectMenu
                   people={donators.filter((donator) => !selectedDonators.some((don) => don._id === donator._id))}
-                  handleSelect={handleSelect}
+                  handleSelect={handleDonatorSelect}
                   type="Donator"
                 />
                 <ol className='list-inside list-decimal mt-2'>

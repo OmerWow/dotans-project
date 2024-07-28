@@ -1,16 +1,8 @@
 import type { ObjectId } from "mongodb";
 import { Gender } from "./genders";
+import type { Person } from "./person";
 
-export type Donator = {
-  _id: ObjectId;
-  idNumber: string;
-  firstName: string;
-  lastName: string;
-  gender: Gender;
-  birthDate: Date;
-  address: string;
-  phone: string;
-  email: string;
+export type Donator = Person & {
   notes: string;
   donationType: Donation;
 };

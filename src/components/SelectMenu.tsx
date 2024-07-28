@@ -32,7 +32,7 @@ export default function SelectMenu({ people, handleSelect, type }: SelectMenuPro
             onChange={(person) => {
                 setQuery('');
                 setSelectedPerson(person);
-                handleSelect(person as Volunteer | Donator, type);
+                handleSelect(person as Volunteer & Donator);
             }}
         >
             <Label className="block text-sm  leading-6 text-gray-600">בחר {type === "Volunteer" ? "מתנדב" : "תורם"} על מנת להוסיף אותו לאירוע</Label>
@@ -76,6 +76,6 @@ export default function SelectMenu({ people, handleSelect, type }: SelectMenuPro
 
 type SelectMenuProps = {
     people: Volunteer[] | Donator[];
-    handleSelect: (person: Volunteer | Donator, type: "Volunteer" | "Donator") => void;
+    handleSelect: (person: Volunteer & Donator) => void;
     type: "Volunteer" | "Donator";
 };
