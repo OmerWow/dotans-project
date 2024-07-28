@@ -9,7 +9,8 @@ export default function SignInPage() {
   return (
     <div className="flex flex-col justify-center flex-1 h-screen px-6 py-12 place-items-center lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-2xl font-bold tracking-tight text-center text-gray-900 leading-9">
+        <img src="https://todogod.com/wp-content/uploads/2023/05/%D7%A1%D7%95%D7%A4%D7%A8-%D7%9E%D7%94%D7%9C%D7%91-%D7%97%D7%91%D7%93.png.webp" alt="" />
+        <h2 className="-mt-10 text-2xl font-bold tracking-tight text-center text-gray-900 leading-9">
           התחבר לחשבונך
         </h2>
       </div>
