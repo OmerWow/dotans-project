@@ -2,7 +2,7 @@
 
 import { ObjectId } from "mongodb";
 import clientPromise from "../../../../lib/mongodb";
-import type { Event, EventKind, EventStatus } from "../../../../types/events";
+import type { Event, EventKind, EventStatus } from "../../../../types/event";
 import { redirect } from "next/navigation";
 
 export async function getAllEvents() {

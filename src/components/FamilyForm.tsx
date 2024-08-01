@@ -3,8 +3,8 @@
 import { addOrUpdateFamily } from "@/app/dashboard/families/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { Family, FamilyPreference } from "../../types/families";
-import { Gender } from "../../types/genders";
+import { Family, FamilyPreference } from "../../types/family";
+import { Gender } from "../../types/gender";
 
 export default function FamilyForm({ id, family }: FamilyFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateFamily, "");
@@ -315,11 +315,11 @@ export default function FamilyForm({ id, family }: FamilyFormProps) {
                     defaultValue={
                       currentFamily?.contact.birthDate
                         ? new Date(currentFamily.contact.birthDate)
-                            .toISOString()
-                            .slice(0, 16)
+                          .toISOString()
+                          .slice(0, 16)
                         : new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
-                            .toISOString()
-                            .slice(0, 16)
+                          .toISOString()
+                          .slice(0, 16)
                     }
                     max={new Date(new Date().getTime() + 3 * 60 * 60 * 1000)
                       .toISOString()

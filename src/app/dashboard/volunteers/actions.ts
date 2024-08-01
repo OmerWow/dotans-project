@@ -3,8 +3,8 @@
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import clientPromise from "../../../../lib/mongodb";
-import { Gender } from "../../../../types/genders";
-import { Volunteer, VolunteerPreference } from "../../../../types/volunteers";
+import { Gender } from "../../../../types/gender";
+import { Volunteer, VolunteerPreference } from "../../../../types/volunteer";
 
 export async function getAllVolunteers() {
   return (await clientPromise

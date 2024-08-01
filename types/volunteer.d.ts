@@ -1,5 +1,5 @@
 import type { ObjectId } from "mongodb";
-import { Gender } from "./genders";
+import { Gender } from "./gender";
 import { Person } from "./person";
 
 export type Volunteer = Omit<Person, "birthDate"> & {

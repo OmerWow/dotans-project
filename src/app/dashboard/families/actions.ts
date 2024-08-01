@@ -7,8 +7,8 @@ import {
   Family,
   FamilyContact,
   FamilyPreference,
-} from "../../../../types/families";
-import { Gender } from "../../../../types/genders";
+} from "../../../../types/family";
+import { Gender } from "../../../../types/gender";
 
 export async function getAllFamilies() {
   return (await clientPromise

@@ -4,7 +4,7 @@ import { addOrUpdateDonator } from "@/app/dashboard/donators/actions";
 import Link from "next/link";
 import { useActionState } from "react";
 import { Donation, Donator } from "../../types/donator";
-import { Gender } from "../../types/genders";
+import { Gender } from "../../types/gender";
 
 export default function DonatorForm({ id, donator }: DonatorFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");

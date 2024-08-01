@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import clientPromise from "../../../../lib/mongodb";
 import { Donation, Donator } from "../../../../types/donator";
-import { Gender } from "../../../../types/genders";
+import { Gender } from "../../../../types/gender";
 
 export async function getAllDonators() {
   return (await clientPromise

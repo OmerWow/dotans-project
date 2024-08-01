@@ -1,5 +1,5 @@
 import type { ObjectId } from "mongodb";
-import { Gender } from "./genders";
+import { Gender } from "./gender";
 
 export type Person = {
     _id: ObjectId;
