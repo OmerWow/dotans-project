@@ -1,5 +1,6 @@
 import type { ObjectId } from "mongodb";
 import { Gender } from "./genders";
+import type { Person } from "./person";
 
 export type Family = {
   _id: ObjectId;
@@ -12,12 +13,6 @@ export type Family = {
   familiarWithWelfare: boolean;
 };
 
-export type FamilyContact = {
-  idNumber: string;
-  firstName: string;
-  lastName: string;
-  gender: Gender;
-  birthDate: Date;
-};
+export type FamilyContact = Omit<Person, "_id", "phone", "email", "address">;
 
 export type FamilyPreference = "כרטיס" | "משלוח";

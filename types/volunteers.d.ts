@@ -2,7 +2,7 @@ import type { ObjectId } from "mongodb";
 import { Gender } from "./genders";
 import { Person } from "./person";
 
-export type Volunteer = Person & {
+export type Volunteer = Omit<Person, "birthDate"> & {
   preference: VolunteerPreference;
 };
 

@@ -10,4 +10,5 @@ export type Person = {
     phone: string;
     email: string;
     address: string;
+    birthDate: Date;
 };

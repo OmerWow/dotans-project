@@ -36,7 +36,7 @@ export default function EventForm({
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
 
-  const handleSelect = <T extends Person>(
+  const handleSelect = <T extends Pick<Person, "_id">>(
     person: T,
     currentSelected: T[],
     setSelected: Dispatch<SetStateAction<T[]>>,
