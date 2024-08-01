@@ -32,6 +32,9 @@ export default function EventForm({
   const [selectedDonators, setSelectedDonators] = useState<Donator[]>(
     donators.filter((donator) => currentEvent.donators.includes(donator._id))
   );
+  const [selectedFamilies, setSelectedFamilies] = useState<Family[]>(
+    families.filter((family) => currentEvent.families.includes(family._id))
+  );
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
@@ -53,6 +56,9 @@ export default function EventForm({
 
   const handleDonatorSelect = (person: Donator) =>
     handleSelect(person, selectedDonators, setSelectedDonators, donators);
+
+  const handleFamilySelect = (person: Family) =>
+    handleSelect(person, selectedFamilies, setSelectedFamilies, families);
 
   return (
     <form action={action}>
@@ -221,7 +227,7 @@ export default function EventForm({
                   מתנדבים
                 </legend>
                 <SelectMenu
-                  people={volunteers.filter((volunteer) => !selectedVolunteers.some((vol) => vol._id === volunteer._id))}
+                  items={volunteers.filter((volunteer) => !selectedVolunteers.some((vol) => vol._id === volunteer._id))}
                   handleSelect={handleVolunteerSelect}
                   type="Volunteer"
                 />
@@ -262,7 +268,7 @@ export default function EventForm({
                   תורמים
                 </legend>
                 <SelectMenu
-                  people={donators.filter((donator) => !selectedDonators.some((don) => don._id === donator._id))}
+                  items={donators.filter((donator) => !selectedDonators.some((don) => don._id === donator._id))}
                   handleSelect={handleDonatorSelect}
                   type="Donator"
                 />
@@ -302,43 +308,37 @@ export default function EventForm({
                 <legend className="block text-sm font-medium text-gray-900 leading-6">
                   משפחות
                 </legend>
-                <div className="mt-2 space-y-5">
-                  {families.map((family) => {
-                    return (
-                      <div
-                        key={family._id.toString()}
-                        className="relative flex items-start"
-                      >
-                        <div className="flex items-center h-6">
-                          <input
-                            type="checkbox"
-                            id="families"
-                            name="families"
-                            value={family._id.toString()}
-                            defaultChecked={currentEvent?.families?.includes(
-                              family._id,
-                            )}
-                            className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
-                          />
-                        </div>
-                        <div className="mr-3 text-sm leading-6">
-                          <label
-                            htmlFor="families"
-                            className="font-medium text-gray-900"
-                          >
-                            משפחת {family.contact.lastName}
-                          </label>{" "}
-                          <span
-                            id="family-number-of-people"
-                            className="text-gray-500"
-                          >
-                            {family.numberOfPeople} נפשות
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <SelectMenu
+                  items={families.filter((family) => !selectedFamilies.some((fam) => fam._id === family._id))}
+                  handleSelect={handleFamilySelect}
+                  type="Family"
+                />
+                <ol className='list-inside list-decimal mt-2'>
+                  {selectedFamilies
+                    .map((family) => (
+                      <li key={family._id.toString()}>
+                        משפחת {family.contact.lastName}
+                        <span className="mr-1.5 truncate text-sm text-gray-500 group-data-[focus]:text-indigo-200">
+                          {family.numberOfPeople} נפשות
+                        </span>
+                        <XMarkIcon
+                          className="cursor-pointer inline w-5 h-5 mr-2 text-red-500"
+                          onClick={() => setSelectedFamilies(selectedFamilies.filter((fam) => fam._id !== family._id))}
+                        />
+                      </li>
+                    ))}
+                </ol>
+                {selectedFamilies.length > 0 && (
+                  selectedFamilies.map((family) => (
+                    <input
+                      key={family._id.toString()}
+                      type="hidden"
+                      name="families"
+                      value={family._id.toString()}
+                      readOnly
+                    />
+                  ))
+                )}
               </fieldset>
             </div>
           </div>
