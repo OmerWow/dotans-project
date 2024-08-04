@@ -27,13 +27,13 @@ export default function EventForm({
   const donators: Donator[] = JSON.parse(allDonators);
 
   const [selectedVolunteers, setSelectedVolunteers] = useState<Volunteer[]>(
-    volunteers.filter((volunteer) => currentEvent.volunteers.includes(volunteer._id))
+    volunteers.filter((volunteer) => currentEvent?.volunteers.includes(volunteer._id))
   );
   const [selectedDonators, setSelectedDonators] = useState<Donator[]>(
-    donators.filter((donator) => currentEvent.donators.includes(donator._id))
+    donators.filter((donator) => currentEvent?.donators.includes(donator._id))
   );
   const [selectedFamilies, setSelectedFamilies] = useState<Family[]>(
-    families.filter((family) => currentEvent.families.includes(family._id))
+    families.filter((family) => currentEvent?.families.includes(family._id))
   );
 
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
