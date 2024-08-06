@@ -10,7 +10,7 @@ import { Family } from "../../types/family";
 import { Volunteer } from "../../types/volunteer";
 import SelectMenu from "./SelectMenu";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import type { Person } from "../../types/person";
+import type { ObjectId } from "mongodb";
 
 export default function EventForm({
   id,
@@ -39,26 +39,26 @@ export default function EventForm({
   const statuses: EventStatus[] = ["מתבצע", "הוקפא", "הסתיים"];
   const kinds: EventKind[] = ["חלוקה", "איסוף"];
 
-  const handleSelect = <T extends Pick<Person, "_id">>(
-    person: T,
+  const handleSelect = <T extends { _id: ObjectId; }>(
+    item: T,
     currentSelected: T[],
     setSelected: Dispatch<SetStateAction<T[]>>,
     allItems: T[]
   ) => {
-    const selectedPerson = allItems.find(item => item._id === person._id);
-    if (selectedPerson && !currentSelected.some(item => item._id === selectedPerson._id)) {
-      setSelected(prev => [...prev, selectedPerson]);
+    const selectedItem = allItems.find(curr => curr._id === item._id);
+    if (selectedItem && !currentSelected.some(item => item._id === selectedItem._id)) {
+      setSelected(prev => [...prev, selectedItem]);
     }
   };
 
-  const handleVolunteerSelect = (person: Volunteer) =>
-    handleSelect(person, selectedVolunteers, setSelectedVolunteers, volunteers);
+  const handleVolunteerSelect = (item: Volunteer) =>
+    handleSelect(item, selectedVolunteers, setSelectedVolunteers, volunteers);
 
-  const handleDonatorSelect = (person: Donator) =>
-    handleSelect(person, selectedDonators, setSelectedDonators, donators);
+  const handleDonatorSelect = (item: Donator) =>
+    handleSelect(item, selectedDonators, setSelectedDonators, donators);
 
-  const handleFamilySelect = (person: Family) =>
-    handleSelect(person, selectedFamilies, setSelectedFamilies, families);
+  const handleFamilySelect = (item: Family) =>
+    handleSelect(item, selectedFamilies, setSelectedFamilies, families);
 
   return (
     <form action={action}>
