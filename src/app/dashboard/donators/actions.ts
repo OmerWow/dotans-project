@@ -19,6 +19,13 @@ export async function getDonatorById(_id: ObjectId) {
     .findOne({ _id })) as unknown as Donator;
 }
 
+export async function getDonationsByDonatorId(donatorId: ObjectId) {
+  return (await clientPromise
+    .collection("donations")
+    .find({ donatorId })
+    .toArray()) as unknown as Donation[];
+}
+
 export async function addOrUpdateDonator(
   prevState: string,
   formData: FormData,
@@ -35,8 +42,6 @@ export async function addOrUpdateDonator(
     address: formData.get("address") as string,
     phone: formData.get("phone") as string,
     email: formData.get("email") as string,
-    notes: formData.get("notes") as string,
-    donationType: formData.get("donationType") as Donation,
   };
 
   if (await getDonatorById(_id)) {

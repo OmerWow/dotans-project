@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { getDonatorById } from "../actions";
+import { getDonationsByDonatorId, getDonatorById } from "../actions";
 import DonatorForm from "@/components/donator/DonatorForm";
 
 export default async function DonatorPage({
@@ -7,7 +7,12 @@ export default async function DonatorPage({
 }: {
   params: { id: string; };
 }) {
-  const donator = await getDonatorById(new ObjectId(params.id));
+  const donatorId = new ObjectId(params.id);
 
-  return <DonatorForm id={params.id} donator={JSON.stringify(donator)} />;
+  const [donator, donations] = await Promise.all([
+    getDonatorById(donatorId),
+    getDonationsByDonatorId(donatorId),
+  ]);
+
+  return <DonatorForm id={params.id} donator={JSON.stringify(donator)} donations={JSON.stringify(donations)} />;
 }

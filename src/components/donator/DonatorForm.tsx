@@ -6,8 +6,9 @@ import { useActionState } from "react";
 import type { Donator } from "../../../types/donator";
 import type { Gender } from "../../../types/gender";
 import type { DonationType } from "../../../types/donation";
+import DonationsTable from "./DonationsTable";
 
-export default function DonatorForm({ id, donator }: DonatorFormProps) {
+export default function DonatorForm({ id, donator, donations }: DonatorFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");
 
   const currentDonator: Donator = JSON.parse(donator);
@@ -312,6 +313,10 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                 />
               </div>
             </div>
+
+            <div className="sm:col-span-4">
+              <DonationsTable donationsString={donations} />
+            </div>
           </div>
         </div>
       </div>
@@ -338,4 +343,5 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
 type DonatorFormProps = {
   id: string;
   donator: string;
+  donations: string;
 };
