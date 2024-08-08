@@ -1,6 +1,6 @@
 "use server";
 
-import type { ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import clientPromise from "../../../../lib/mongodb";
 import type { Donator } from "../../../../types/donator";
