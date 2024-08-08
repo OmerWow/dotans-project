@@ -83,7 +83,7 @@ export default async function DonatorsPage() {
                     scope="col"
                     className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"
                   >
-                    סוג תרומה
+                    כמות תרומות
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">ערוך</span>
@@ -122,7 +122,7 @@ export default async function DonatorsPage() {
                       {donator.email}
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                      {donator.donationType}
+                      {donator.donations?.length || 0} תרומות
                     </td>
                     <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
                       <Link

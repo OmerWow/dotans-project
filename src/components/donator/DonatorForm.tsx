@@ -3,8 +3,9 @@
 import { addOrUpdateDonator } from "@/app/dashboard/donators/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { Donation, Donator } from "../../types/donator";
-import { Gender } from "../../types/gender";
+import type { Donator } from "../../../types/donator";
+import type { Gender } from "../../../types/gender";
+import type { DonationType } from "../../../types/donation";
 
 export default function DonatorForm({ id, donator }: DonatorFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");
@@ -12,7 +13,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
   const currentDonator: Donator = JSON.parse(donator);
 
   const genders: Gender[] = ["זכר", "נקבה", "אחר"];
-  const donationTypes: Donation[] = [
+  const donationTypes: DonationType[] = [
     "כספים",
     "פריטי יד שנייה",
     "מוצרי מזון",
@@ -245,7 +246,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                 סוג תרומה
               </h3>
               <div className="mt-2 space-y-2">
-                {donationTypes.map((donation) => {
+                {donationTypes.map((donation, index) => {
                   return (
                     <div key={donation} className="flex items-center gap-x-3">
                       <input
@@ -255,9 +256,7 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                         name="donationType"
                         type="radio"
                         className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
-                        defaultChecked={
-                          donation === currentDonator?.donationType
-                        }
+                        defaultChecked={index === 0}
                       />
                       <label
                         htmlFor={donation}
@@ -310,7 +309,6 @@ export default function DonatorForm({ id, donator }: DonatorFormProps) {
                   rows={3}
                   className="block w-80 sm:w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="הערות נוספות"
-                  defaultValue={currentDonator?.notes}
                 />
               </div>
             </div>

@@ -278,7 +278,7 @@ export default function EventForm({
                       <li key={donator._id.toString()}>
                         {donator.firstName} {donator.lastName}
                         <span className="mr-1.5 truncate text-sm text-gray-500 group-data-[focus]:text-indigo-200">
-                          {donator.donationType}
+                          {donator.donations?.length || 0} תרומות
                         </span>
                         <XMarkIcon
                           className="cursor-pointer inline w-5 h-5 mr-2 text-red-500"
