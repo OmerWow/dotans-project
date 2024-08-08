@@ -1,10 +1,11 @@
 "use server";
 
-import { ObjectId } from "mongodb";
+import type { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import clientPromise from "../../../../lib/mongodb";
-import { Donation, Donator } from "../../../../types/donator";
-import { Gender } from "../../../../types/gender";
+import type { Donator } from "../../../../types/donator";
+import type { Gender } from "../../../../types/gender";
+import type { Donation } from "../../../../types/donation";
 
 export async function getAllDonators() {
   return (await clientPromise
@@ -42,6 +43,7 @@ export async function addOrUpdateDonator(
     address: formData.get("address") as string,
     phone: formData.get("phone") as string,
     email: formData.get("email") as string,
+    donations: formData.getAll("donations") as unknown as ObjectId[],
   };
 
   if (await getDonatorById(_id)) {

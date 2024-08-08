@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import type { Donator } from "../../../types/donator";
 import type { Gender } from "../../../types/gender";
-import type { DonationType } from "../../../types/donation";
-import DonationsTable from "./DonationsTable";
+import DonationsForm from "./DonationsForm";
 
 export default function DonatorForm({ id, donator, donations }: DonatorFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");
@@ -14,12 +13,6 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
   const currentDonator: Donator = JSON.parse(donator);
 
   const genders: Gender[] = ["זכר", "נקבה", "אחר"];
-  const donationTypes: DonationType[] = [
-    "כספים",
-    "פריטי יד שנייה",
-    "מוצרי מזון",
-    "שירות",
-  ];
 
   return (
     <form action={action}>
@@ -233,92 +226,7 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
           </div>
         </div>
 
-        <div className="pb-12 border-b border-gray-900/10">
-          <h2 className="text-base font-semibold text-gray-900 leading-7">
-            ניהול תרומות
-          </h2>
-          <p className="mt-1 text-sm text-gray-600 leading-6">
-            פה תוכל להוסיף תרומות לתורם זה
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
-              <h3 className="block text-sm font-medium text-gray-900 leading-6">
-                סוג תרומה
-              </h3>
-              <div className="mt-2 space-y-2">
-                {donationTypes.map((donation, index) => {
-                  return (
-                    <div key={donation} className="flex items-center gap-x-3">
-                      <input
-                        required
-                        id={donation}
-                        value={donation}
-                        name="donationType"
-                        type="radio"
-                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-600"
-                        defaultChecked={index === 0}
-                      />
-                      <label
-                        htmlFor={donation}
-                        className="block text-sm font-medium text-gray-900 leading-6"
-                      >
-                        {donation}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
-                סכום / שווי התרומה
-              </label>
-              <div className="relative mt-2 rounded-md shadow-sm w-96">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
-                  <span className="text-gray-500 sm:text-xs">ש״ח</span>
-                </div>
-                <input
-                  id="donationValue"
-                  name="donationValue"
-                  type="number"
-                  step={100}
-                  placeholder="0.00"
-                  aria-describedby="donationValue"
-                  className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                  <span id="donationValue" className="text-gray-500 sm:text-xs">
-                    ₪
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="notes"
-                className="block text-sm font-medium text-gray-900 leading-6"
-              >
-                הערות נוספות
-              </label>
-              <div className="mt-2">
-                <textarea
-                  id="notes"
-                  name="notes"
-                  rows={3}
-                  className="block w-80 sm:w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="הערות נוספות"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <DonationsTable donationsString={donations} />
-            </div>
-          </div>
-        </div>
+        <DonationsForm donationsString={donations} />
       </div>
 
       <div className="flex items-center justify-start mt-6 gap-x-6">

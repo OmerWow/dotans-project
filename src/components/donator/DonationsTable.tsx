@@ -1,7 +1,10 @@
+import { useState } from "react";
 import type { Donation } from "../../../types/donation";
 
 export default async function DonationsTable({ donationsString }: DonationsTableProps) {
     const donations = JSON.parse(donationsString) as Donation[];
+
+    const [currentDonations, setCurrentDonations] = useState(donations);
 
     return (
         <div className="flow-root w-96">
@@ -45,6 +48,18 @@ export default async function DonationsTable({ donationsString }: DonationsTable
                     </div>
                 </div>
             </div>
+
+            {currentDonations.length > 0 && (
+                currentDonations.map((donation) => (
+                    <input
+                        key={donation._id.toString()}
+                        type="hidden"
+                        name="donations"
+                        value={donation._id.toString()}
+                        readOnly
+                    />
+                ))
+            )}
         </div>
     );
 }
