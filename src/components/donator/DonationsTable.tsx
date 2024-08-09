@@ -26,8 +26,8 @@ export default function DonationsTable({ donationsString }: DonationsTableProps)
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white">
-                                {donations.map((donation) => (
-                                    <tr key={donation._id.toString()}>
+                                {donations.map((donation, index) => (
+                                    <tr key={index.toString()}>
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                             {donation.type}
                                         </td>
@@ -35,7 +35,7 @@ export default function DonationsTable({ donationsString }: DonationsTableProps)
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{donation.notes || "אין"}</td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                             <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                Edit<span className="sr-only">, {donation._id.toString()}</span>
+                                                Edit
                                             </a>
                                         </td>
                                     </tr>
@@ -45,18 +45,6 @@ export default function DonationsTable({ donationsString }: DonationsTableProps)
                     </div>
                 </div>
             </div>
-
-            {donations.length > 0 && (
-                donations.map((donation) => (
-                    <input
-                        key={donation._id.toString()}
-                        type="hidden"
-                        name="donations"
-                        value={donation._id.toString()}
-                        readOnly
-                    />
-                ))
-            )}
         </div>
     );
 }
