@@ -6,6 +6,7 @@ import { useActionState } from "react";
 import type { Donator } from "../../../types/donator";
 import type { Gender } from "../../../types/gender";
 import DonationsForm from "./DonationsForm";
+import { ObjectId } from "mongodb";
 
 export default function DonatorForm({ id, donator, donations }: DonatorFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");
@@ -226,7 +227,7 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
           </div>
         </div>
 
-        <DonationsForm donationsString={donations} />
+        <DonationsForm donationsString={donations} donatorId={new ObjectId(id)} />
       </div>
 
       <div className="flex items-center justify-start mt-6 gap-x-6">
