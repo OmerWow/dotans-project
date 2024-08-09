@@ -22,7 +22,7 @@ const getAdditionalInfo = (item: Volunteer | Donator | Family, type: SelectMenuP
         case "Volunteer":
             return (item as Volunteer).preference;
         case "Donator":
-            return (item as Donator).donationType;
+            return `${(item as Donator).donations.length} תרומות`;
         case "Family":
             return `${(item as Family).numberOfPeople} נפשות`;
         default:
