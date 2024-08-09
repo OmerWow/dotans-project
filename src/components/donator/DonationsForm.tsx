@@ -1,12 +1,10 @@
-"use client";
-
 import { useState } from "react";
 import type { Donation, DonationType } from "../../../types/donation";
 import DonationsTable from "./DonationsTable";
-import { ObjectId } from "mongodb";
 
-export default function DonationsForm({ donationsString, donatorId }: DonationsFormProps) {
-    const [currentDonations, setCurrentDonations] = useState<Donation[]>(donationsString ? JSON.parse(donationsString) : []);
+export default function DonationsForm({ donationsString }: DonationsFormProps) {
+    type DonationsFormType = Omit<Donation, "_id" | "donatorId">;
+    const [currentDonations, setCurrentDonations] = useState<DonationsFormType[]>(donationsString ? JSON.parse(donationsString) : []);
 
     const donationTypes: DonationType[] = [
         "כספים",
@@ -114,9 +112,7 @@ export default function DonationsForm({ donationsString, donatorId }: DonationsF
                             const donationValue = Number((document.getElementById("donationValue") as HTMLInputElement).value);
                             const notes = (document.getElementById("notes") as HTMLTextAreaElement).value;
 
-                            const newDonation: Donation = {
-                                _id: new ObjectId(),
-                                donatorId,
+                            const newDonation: DonationsFormType = {
                                 type: donationType,
                                 value: donationValue,
                                 notes,
@@ -135,5 +131,4 @@ export default function DonationsForm({ donationsString, donatorId }: DonationsF
 
 type DonationsFormProps = {
     donationsString: string;
-    donatorId: ObjectId;
 };

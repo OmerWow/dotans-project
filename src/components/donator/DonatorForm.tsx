@@ -227,7 +227,7 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
           </div>
         </div>
 
-        <DonationsForm donationsString={donations} donatorId={new ObjectId(id)} />
+        <DonationsForm donationsString={donations} />
       </div>
 
       <div className="flex items-center justify-start mt-6 gap-x-6">
