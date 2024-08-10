@@ -1,8 +1,6 @@
-import type { Donation } from "../../../types/donation";
+import type { DonationsFormType } from "../../../types/donation";
 
-export default function DonationsTable({ donationsString }: DonationsTableProps) {
-    const donations = JSON.parse(donationsString) as Donation[];
-
+export default function DonationsTable({ donations }: DonationsTableProps) {
     return (
         <div className="flow-root w-96">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -50,5 +48,5 @@ export default function DonationsTable({ donationsString }: DonationsTableProps)
 }
 
 type DonationsTableProps = {
-    donationsString: string;
+    donations: DonationsFormType[];
 };

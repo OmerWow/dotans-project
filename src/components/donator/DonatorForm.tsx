@@ -2,13 +2,15 @@
 
 import { addOrUpdateDonator } from "@/app/dashboard/donators/actions";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import type { Donator } from "../../../types/donator";
 import type { Gender } from "../../../types/gender";
 import DonationsForm from "./DonationsForm";
-import { ObjectId } from "mongodb";
+import type { DonationsFormType } from "../../../types/donation";
 
 export default function DonatorForm({ id, donator, donations }: DonatorFormProps) {
+  const [currentDonations, setCurrentDonations] = useState<DonationsFormType[]>(donations ? JSON.parse(donations) : []);
+
   const [error, action, isPending] = useActionState(addOrUpdateDonator, "");
 
   const currentDonator: Donator = JSON.parse(donator);
@@ -227,7 +229,7 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
           </div>
         </div>
 
-        <DonationsForm donationsString={donations} />
+        <DonationsForm donations={currentDonations} setDonations={setCurrentDonations} />
       </div>
 
       <div className="flex items-center justify-start mt-6 gap-x-6">

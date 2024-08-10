@@ -1,11 +1,8 @@
-import { useState } from "react";
-import type { Donation, DonationType } from "../../../types/donation";
+import type { Dispatch, SetStateAction } from "react";
+import type { DonationsFormType, DonationType } from "../../../types/donation";
 import DonationsTable from "./DonationsTable";
 
-export default function DonationsForm({ donationsString }: DonationsFormProps) {
-    type DonationsFormType = Omit<Donation, "_id" | "donatorId">;
-    const [currentDonations, setCurrentDonations] = useState<DonationsFormType[]>(donationsString ? JSON.parse(donationsString) : []);
-
+export default function DonationsForm({ donations, setDonations }: DonationsFormProps) {
     const donationTypes: DonationType[] = [
         "כספים",
         "פריטי יד שנייה",
@@ -22,7 +19,7 @@ export default function DonationsForm({ donationsString }: DonationsFormProps) {
                 פה תוכל להוסיף תרומות לתורם זה
             </p>
 
-            <DonationsTable donationsString={JSON.stringify(currentDonations)} />
+            <DonationsTable donations={donations} />
 
             <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 border p-4 max-w-screen-sm border-gray-300 rounded-xl">
                 <div className="sm:col-span-4">
@@ -76,6 +73,7 @@ export default function DonationsForm({ donationsString }: DonationsFormProps) {
                             placeholder="0.00"
                             aria-describedby="donationValue"
                             className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            required
                         />
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <span id="donationValue" className="text-gray-500 sm:text-xs">
@@ -112,13 +110,21 @@ export default function DonationsForm({ donationsString }: DonationsFormProps) {
                             const donationValue = Number((document.getElementById("donationValue") as HTMLInputElement).value);
                             const notes = (document.getElementById("notes") as HTMLTextAreaElement).value;
 
+                            if (!donationValue) {
+                                alert("אנא הכנס סכום תרומה");
+                                return;
+                            }
+
                             const newDonation: DonationsFormType = {
                                 type: donationType,
                                 value: donationValue,
                                 notes,
                             };
 
-                            setCurrentDonations([...currentDonations, newDonation]);
+                            setDonations([...donations, newDonation]);
+
+                            (document.getElementById("donationValue") as HTMLInputElement).value = "";
+                            (document.getElementById("notes") as HTMLTextAreaElement).value = "";
                         }}
                     >
                         הוסף תרומה
@@ -130,5 +136,6 @@ export default function DonationsForm({ donationsString }: DonationsFormProps) {
 };
 
 type DonationsFormProps = {
-    donationsString: string;
+    donations: DonationsFormType[];
+    setDonations: Dispatch<SetStateAction<DonationsFormType[]>>;
 };

@@ -9,3 +9,5 @@ export type Donation = {
 };
 
 export type DonationType = "כספים" | "פריטי יד שנייה" | "מוצרי מזון" | "שירות";
+
+export type DonationsFormType = Omit<Donation, "_id" | "donatorId">;
