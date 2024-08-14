@@ -31,10 +31,21 @@ export async function addOrUpdateDonator(
   prevState: string,
   formData: FormData,
 ) {
-  const _id = new ObjectId(formData.get("_id") as string);
+  const donatorId = new ObjectId(formData.get("_id") as string);
+
+  const donations: Donation[] = ((formData.getAll("donations") as string[])
+    .map((donation) => JSON.parse(donation)));
+  donations.forEach((donation) => {
+    if (!donation._id) {
+      donation._id = new ObjectId();
+      donation.donatorId = donatorId;
+    }
+  });
+
+  // add all donations to the their collection here
 
   const donator: Donator = {
-    _id,
+    _id: donatorId,
     idNumber: formData.get("idNumber") as string,
     firstName: formData.get("firstName") as string,
     lastName: formData.get("lastName") as string,
@@ -43,13 +54,13 @@ export async function addOrUpdateDonator(
     address: formData.get("address") as string,
     phone: formData.get("phone") as string,
     email: formData.get("email") as string,
-    donations: formData.getAll("donations") as unknown as ObjectId[],
+    donations: donations.map((donation) => donation._id),
   };
 
-  if (await getDonatorById(_id)) {
+  if (await getDonatorById(donatorId)) {
     await clientPromise
       .collection("donators")
-      .updateOne({ _id }, { $set: donator });
+      .updateOne({ _id: donatorId }, { $set: donator });
 
     return redirect("/dashboard/donators");
   }

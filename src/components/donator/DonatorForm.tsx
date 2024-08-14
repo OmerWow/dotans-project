@@ -232,6 +232,18 @@ export default function DonatorForm({ id, donator, donations }: DonatorFormProps
         <DonationsForm donations={currentDonations} setDonations={setCurrentDonations} />
       </div>
 
+      {currentDonations.length > 0 && (
+        currentDonations.map((donation, index) => (
+          <input
+            key={index.toString()}
+            type="hidden"
+            name="donations"
+            value={JSON.stringify(donation)}
+            readOnly
+          />
+        ))
+      )}
+
       <div className="flex items-center justify-start mt-6 gap-x-6">
         <button
           type="submit"
