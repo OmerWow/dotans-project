@@ -19,7 +19,7 @@ export default function DonationsForm({ donations, setDonations }: DonationsForm
                 פה תוכל להוסיף תרומות לתורם זה
             </p>
 
-            <DonationsTable donations={donations} />
+            <DonationsTable donations={donations} setDonations={setDonations} />
 
             <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 border p-4 max-w-screen-sm border-gray-300 rounded-xl">
                 <div className="sm:col-span-4">
