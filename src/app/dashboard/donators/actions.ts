@@ -35,14 +35,19 @@ export async function addOrUpdateDonator(
 
   const donations: Donation[] = ((formData.getAll("donations") as string[])
     .map((donation) => JSON.parse(donation)));
-  donations.forEach((donation) => {
-    if (!donation._id) {
+
+  const donationsToAdd = donations
+    .filter((donation) => !donation._id)
+    .map((donation) => {
       donation._id = new ObjectId();
       donation.donatorId = donatorId;
-    }
-  });
 
-  await clientPromise.collection("donations").insertMany(donations);
+      return donation;
+    });
+
+  if (donationsToAdd.length) {
+    await clientPromise.collection("donations").insertMany(donationsToAdd);
+  }
 
   const donator: Donator = {
     _id: donatorId,
@@ -54,7 +59,7 @@ export async function addOrUpdateDonator(
     address: formData.get("address") as string,
     phone: formData.get("phone") as string,
     email: formData.get("email") as string,
-    donations: donations.map((donation) => donation._id),
+    donations: donations.map((donation) => new ObjectId(donation._id)),
   };
 
   if (await getDonatorById(donatorId)) {
