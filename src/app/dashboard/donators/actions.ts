@@ -76,15 +76,9 @@ export async function addOrUpdateDonator(
     donations: donations.map((donation) => new ObjectId(donation._id)),
   };
 
-  if (await getDonatorById(donatorId)) {
-    await clientPromise
-      .collection("donators")
-      .updateOne({ _id: donatorId }, { $set: donator });
-
-    return redirect("/dashboard/donators");
-  }
-
-  await clientPromise.collection("donators").insertOne(donator);
+  await clientPromise
+    .collection("donators")
+    .updateOne({ _id: donatorId }, { $set: donator }, { upsert: true });
 
   return redirect("/dashboard/donators");
 }
