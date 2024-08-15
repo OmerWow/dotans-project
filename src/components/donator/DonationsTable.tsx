@@ -3,6 +3,15 @@ import type { DonationsFormType } from "../../../types/donation";
 import type { Dispatch, SetStateAction } from "react";
 
 export default function DonationsTable({ donations, setDonations }: DonationsTableProps) {
+    if (!donations.length) {
+        return (
+            <>
+                <h3 className="mt-2 text-sm font-semibold text-gray-900">אין תרומות</h3>
+                <p className="mt-1 text-sm text-gray-500">הוסף תרומה חדשה בעזרת הטופס הבא:</p>
+            </>
+        );
+    }
+
     return (
         <div className="flow-root w-96">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
