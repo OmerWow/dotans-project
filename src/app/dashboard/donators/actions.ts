@@ -42,7 +42,7 @@ export async function addOrUpdateDonator(
     }
   });
 
-  // add all donations to the their collection here
+  await clientPromise.collection("donations").insertMany(donations);
 
   const donator: Donator = {
     _id: donatorId,
