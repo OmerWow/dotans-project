@@ -33,8 +33,9 @@ export async function addOrUpdateDonator(
 ) {
   const donatorId = new ObjectId(formData.get("_id") as string);
 
-  const donations: Donation[] = ((formData.getAll("donations") as string[])
-    .map((donation) => JSON.parse(donation)));
+  const donations: Donation[] = (formData
+    .getAll("donations") as string[])
+    .map((donation) => JSON.parse(donation));
 
   const donationsToAdd = donations
     .filter((donation) => !donation._id)
@@ -47,6 +48,19 @@ export async function addOrUpdateDonator(
 
   if (donationsToAdd.length) {
     await clientPromise.collection("donations").insertMany(donationsToAdd);
+  }
+
+  const existingDonations = await clientPromise
+    .collection("donations")
+    .find({ donatorId })
+    .toArray();
+
+  const donationsToDelete = existingDonations
+    .filter((existingDonation) => !donations.some((donation) => donation._id && donation._id.toString() === existingDonation._id.toString()))
+    .map((donation) => donation._id);
+
+  if (donationsToDelete.length) {
+    await clientPromise.collection("donations").deleteMany({ _id: { $in: donationsToDelete } });
   }
 
   const donator: Donator = {
