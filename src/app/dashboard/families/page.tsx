@@ -1,33 +1,35 @@
 import { ObjectId } from "mongodb";
 import Link from "next/link";
 import { getAllFamilies } from "./actions";
+import DownloadCSVButton from "@/components/DownloadCSVButton";
 
 export default async function FamiliesPage({ isReport }: FamiliesPageProps) {
   const families = await getAllFamilies();
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      {isReport
-        ? <h2 className="text-2xl leading-8 -mb-4 font-semibold text-indigo-600">משפחות</h2>
-        : (<div className="sm:flex sm:items-center">
-          <div className="sm:flex-auto">
-            <h1 className="text-base font-semibold text-gray-900 leading-6">
-              משפחות
-            </h1>
-            <p className="mt-2 text-sm text-gray-700">
-              כאן תוכל לראות את כל המשפחות שקיימות במערכת.
-            </p>
-          </div>
-          <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <Link
-              href={`families/${new ObjectId()}`}
-              className="block px-3 py-2 text-sm font-semibold text-center text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              הוסף משפחה
-            </Link>
-          </div>
+      <div className="sm:flex sm:items-center">
+        <div className="sm:flex-auto">
+          <h1 className="text-base font-semibold text-gray-900 leading-6">
+            משפחות
+          </h1>
+          <p className="mt-2 text-sm text-gray-700">
+            כאן תוכל לראות את כל המשפחות שקיימות במערכת.
+          </p>
         </div>
-        )}
+        <div className="mt-4 sm:mt-0 sm:flex-none">
+          {isReport
+            ? <DownloadCSVButton data={JSON.stringify(families)} name="משפחות" />
+            : (
+              <Link
+                href={`families/${new ObjectId()}`}
+                className="block px-3 py-2 text-sm font-semibold text-center text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                הוסף משפחה
+              </Link>
+            )}
+        </div>
+      </div>
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
