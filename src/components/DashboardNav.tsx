@@ -27,6 +27,7 @@ const navigation = [
   { name: "מתנדבים", href: "/dashboard/volunteers" },
   { name: "משפחות", href: "/dashboard/families" },
   { name: "תורמים", href: "/dashboard/donators" },
+  { name: "דוחות", href: "/dashboard/reports" },
   { name: "אודות", href: "https://yehud.org.il/%D7%A1%D7%95%D7%A4%D7%A8-%D7%9E%D7%94%D7%9C%D7%91-2/" },
 ];
 
