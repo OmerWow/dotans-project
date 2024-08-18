@@ -1,9 +1,9 @@
 "use client";
 
-import type { Donator } from "../../types/donator";
-import type { Event } from "../../types/event";
-import type { Family } from "../../types/family";
-import type { Volunteer } from "../../types/volunteer";
+import type { Donator } from "../../../types/donator";
+import type { Event } from "../../../types/event";
+import type { Family } from "../../../types/family";
+import type { Volunteer } from "../../../types/volunteer";
 
 export default function DownloadTableAsCSVButton({ data, name }: DownloadTableAsCSVButtonProps) {
     const convertDataToCSV = (dataArray: Event[] | Family[] | Volunteer[] | Donator[]) => {

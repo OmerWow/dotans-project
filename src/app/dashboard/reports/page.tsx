@@ -1,12 +1,12 @@
-import DonatorsPage from "../donators/page";
-import EventsPage from "../events/page";
-import FamiliesPage from "../families/page";
-import VolunteersPage from "../volunteers/page";
+import DonatorsTable from "@/components/donators/DonatorsTable";
 import { getAllDonators } from "../donators/actions";
 import { getAllEvents } from "../events/actions";
 import { getAllFamilies } from "../families/actions";
 import { getAllVolunteers } from "../volunteers/actions";
-import DownloadAllAsCSVButton from "@/components/DownloadAllAsCSVButton";
+import DownloadAllAsCSVButton from "@/components/reports/DownloadAllAsCSVButton";
+import EventsTable from "@/components/events/EventsTable";
+import FamiliesTable from "@/components/families/FamiliesTable";
+import VolunteersTable from "@/components/volunteers/VolunteersTable";
 
 export default async function ReportsPage() {
     const allData = await Promise.all([
@@ -25,14 +25,15 @@ export default async function ReportsPage() {
         const data = allDataObject[key as keyof typeof allDataObject];
         const headers = Object.keys(data[0]);
         const rows = data.map(row => headers.map(header => row[header as keyof typeof row]).join(","));
+
         return [key, headers.join(","), ...rows].join("\n");
     }).join("\n");
 
-    const items = [
-        EventsPage,
-        FamiliesPage,
-        VolunteersPage,
-        DonatorsPage
+    const tables = [
+        () => <EventsTable eventsString={JSON.stringify(allData[0])} isReport />,
+        () => <FamiliesTable familiesString={JSON.stringify(allData[1])} isReport />,
+        () => <VolunteersTable volunteersString={JSON.stringify(allData[2])} isReport />,
+        () => <DonatorsTable donatorsString={JSON.stringify(allData[3])} isReport />
     ];
 
     return (
@@ -52,9 +53,9 @@ export default async function ReportsPage() {
             </div>
             <div className="mt-8 overflow-hidden rounded-md bg-white shadow">
                 <ul role="list" className="divide-gray-100 divide-y-8">
-                    {items.map((Item, index) => (
+                    {tables.map((Table, index) => (
                         <li key={index.toString()} className="py-4">
-                            <Item isReport />
+                            <Table />
                         </li>
                     ))}
                 </ul>

@@ -3,12 +3,12 @@
 import { addOrUpdateEvent } from "@/app/dashboard/events/actions";
 import Link from "next/link";
 import { useActionState, useState, type Dispatch, type SetStateAction } from "react";
-import { Donator } from "../../types/donator";
-import type { Event } from "../../types/event";
-import { EventKind, EventStatus } from "../../types/event";
-import { Family } from "../../types/family";
-import { Volunteer } from "../../types/volunteer";
-import SelectMenu from "./SelectMenu";
+import { Donator } from "../../../types/donator";
+import type { Event } from "../../../types/event";
+import { EventKind, EventStatus } from "../../../types/event";
+import { Family } from "../../../types/family";
+import { Volunteer } from "../../../types/volunteer";
+import SelectMenu from "../SelectMenu";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import type { ObjectId } from "mongodb";
 

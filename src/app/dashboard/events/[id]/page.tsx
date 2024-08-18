@@ -1,4 +1,4 @@
-import EventForm from "@/components/EventForm";
+import EventForm from "@/components/events/EventForm";
 import { ObjectId } from "mongodb";
 import { getAllDonators } from "../../donators/actions";
 import { getAllFamilies } from "../../families/actions";
@@ -8,7 +8,7 @@ import { getEventById } from "../actions";
 export default async function EventPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; };
 }) {
   const [event, allVolunteers, allFamilies, allDonators] = await Promise.all([
     getEventById(new ObjectId(params.id)),

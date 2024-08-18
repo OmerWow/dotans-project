@@ -1,11 +1,11 @@
-import FamilyForm from "@/components/FamilyForm";
+import FamilyForm from "@/components/families/FamilyForm";
 import { ObjectId } from "mongodb";
 import { getFamilyById } from "../actions";
 
 export default async function FamilyPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; };
 }) {
   const family = await getFamilyById(new ObjectId(params.id));
 

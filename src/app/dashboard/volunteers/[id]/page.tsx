@@ -1,11 +1,11 @@
 import { ObjectId } from "mongodb";
 import { getVolunteerById } from "../actions";
-import VolunteerForm from "@/components/VolunteerForm";
+import VolunteerForm from "@/components/volunteers/VolunteerForm";
 
 export default async function VolunteerPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: string; };
 }) {
   const volunteer = await getVolunteerById(new ObjectId(params.id));
 

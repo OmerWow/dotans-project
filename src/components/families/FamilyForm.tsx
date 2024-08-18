@@ -3,8 +3,8 @@
 import { addOrUpdateFamily } from "@/app/dashboard/families/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { Family, FamilyPreference } from "../../types/family";
-import { Gender } from "../../types/gender";
+import { Family, FamilyPreference } from "../../../types/family";
+import { Gender } from "../../../types/gender";
 
 export default function FamilyForm({ id, family }: FamilyFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateFamily, "");

@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { getDonationsByDonatorId, getDonatorById } from "../actions";
-import DonatorForm from "@/components/donator/DonatorForm";
+import DonatorForm from "@/components/donators/DonatorForm";
 
 export default async function DonatorPage({
   params,

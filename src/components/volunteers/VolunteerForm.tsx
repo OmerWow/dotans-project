@@ -3,8 +3,8 @@
 import { addOrUpdateVolunteer } from "@/app/dashboard/volunteers/actions";
 import Link from "next/link";
 import { useActionState } from "react";
-import { Gender } from "../../types/gender";
-import { Volunteer, VolunteerPreference } from "../../types/volunteer";
+import type { Gender } from "../../../types/gender";
+import type { Volunteer, VolunteerPreference } from "../../../types/volunteer";
 
 export default function VolunteerForm({ id, volunteer }: VolunteerFormProps) {
   const [error, action, isPending] = useActionState(addOrUpdateVolunteer, "");
