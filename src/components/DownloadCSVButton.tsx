@@ -7,7 +7,19 @@ import type { Volunteer } from "../../types/volunteer";
 
 export default function DownloadCSVButton({ data, name }: DownloadCSVButtonProps) {
     const convertDataToCSV = (dataArray: Event[] | Family[] | Volunteer[] | Donator[]) => {
-        const csv = dataArray.map((row) => Object.values(row).join(","));
+        const csv = dataArray.map((row) => {
+            return Object.values(row).map((value) => {
+                if (typeof value === 'object') {
+                    return JSON.stringify(value)
+                        .replaceAll(",", " ")
+                        .replaceAll("{", "")
+                        .replaceAll("}", "")
+                        .replaceAll('"', "");
+                }
+
+                return value;
+            }).join(",");
+        });
         csv.unshift(Object.keys(dataArray[0]).join(","));
 
         return csv.join("\n");
