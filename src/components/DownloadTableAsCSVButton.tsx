@@ -5,7 +5,7 @@ import type { Event } from "../../types/event";
 import type { Family } from "../../types/family";
 import type { Volunteer } from "../../types/volunteer";
 
-export default function DownloadCSVButton({ data, name }: DownloadCSVButtonProps) {
+export default function DownloadTableAsCSVButton({ data, name }: DownloadTableAsCSVButtonProps) {
     const convertDataToCSV = (dataArray: Event[] | Family[] | Volunteer[] | Donator[]) => {
         const csv = dataArray.map((row) => {
             return Object.values(row).map((value) => {
@@ -28,7 +28,7 @@ export default function DownloadCSVButton({ data, name }: DownloadCSVButtonProps
     return (
         <button
             type="button"
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-gray-50 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
             onClick={() => {
                 const csv = convertDataToCSV(JSON.parse(data));
                 const blob = new Blob([csv], { type: "text/csv" });
@@ -44,7 +44,7 @@ export default function DownloadCSVButton({ data, name }: DownloadCSVButtonProps
     );
 }
 
-type DownloadCSVButtonProps = {
+type DownloadTableAsCSVButtonProps = {
     data: string;
     name: string;
 };

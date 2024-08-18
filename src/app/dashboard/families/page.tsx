@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import Link from "next/link";
 import { getAllFamilies } from "./actions";
-import DownloadCSVButton from "@/components/DownloadCSVButton";
+import DownloadTableAsCSVButton from "@/components/DownloadTableAsCSVButton";
 
 export default async function FamiliesPage({ isReport }: FamiliesPageProps) {
   const families = await getAllFamilies();
@@ -19,7 +19,7 @@ export default async function FamiliesPage({ isReport }: FamiliesPageProps) {
         </div>
         <div className="mt-4 sm:mt-0 sm:flex-none">
           {isReport
-            ? <DownloadCSVButton data={JSON.stringify(families)} name="משפחות" />
+            ? <DownloadTableAsCSVButton data={JSON.stringify(families)} name="משפחות" />
             : (
               <Link
                 href={`families/${new ObjectId()}`}

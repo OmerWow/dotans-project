@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getAllEvents } from "./actions";
 import { ObjectId } from "mongodb";
-import DownloadCSVButton from "@/components/DownloadCSVButton";
+import DownloadTableAsCSVButton from "@/components/DownloadTableAsCSVButton";
 
 export default async function EventsPage({ isReport }: EventsPageProps) {
   const events = await getAllEvents();
@@ -19,7 +19,7 @@ export default async function EventsPage({ isReport }: EventsPageProps) {
         </div>
         <div className="mt-4 sm:mt-0 sm:flex-none">
           {isReport
-            ? <DownloadCSVButton data={JSON.stringify(events)} name="אירועים" />
+            ? <DownloadTableAsCSVButton data={JSON.stringify(events)} name="אירועים" />
             : (
               <Link
                 href={`events/${new ObjectId()}`}

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import Link from "next/link";
 import { getAllDonators } from "./actions";
-import DownloadCSVButton from "@/components/DownloadCSVButton";
+import DownloadTableAsCSVButton from "@/components/DownloadTableAsCSVButton";
 
 export default async function DonatorsPage({ isReport }: DonatorsPageProps) {
   const donators = await getAllDonators();
@@ -19,7 +19,7 @@ export default async function DonatorsPage({ isReport }: DonatorsPageProps) {
         </div>
         <div className="mt-4 sm:mt-0 sm:flex-none">
           {isReport
-            ? <DownloadCSVButton data={JSON.stringify(donators)} name="תורמים" />
+            ? <DownloadTableAsCSVButton data={JSON.stringify(donators)} name="תורמים" />
             : (
               <Link
                 href={`donators/${new ObjectId()}`}
