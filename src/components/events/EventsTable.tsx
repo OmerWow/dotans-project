@@ -96,7 +96,7 @@ export default function EventsTable({ eventsString, isReport }: EventsTableProps
                                             {event.name}
                                         </td>
                                         <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            {event.date.toLocaleString("he-IL", {
+                                            {new Date(event.date).toLocaleString("he-IL", {
                                                 weekday: "long",
                                                 year: "numeric",
                                                 month: "long",

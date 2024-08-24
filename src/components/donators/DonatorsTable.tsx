@@ -111,7 +111,7 @@ export default function DonatorsTable({ donatorsString, isReport }: DonatorsTabl
                                             {donator.gender}
                                         </td>
                                         <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                            {donator.birthDate.toLocaleString("he-IL", {
+                                            {new Date(donator.birthDate).toLocaleString("he-IL", {
                                                 year: "numeric",
                                                 month: "long",
                                                 day: "numeric",
