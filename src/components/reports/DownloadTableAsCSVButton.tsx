@@ -30,8 +30,8 @@ export default function DownloadTableAsCSVButton({ data, name }: DownloadTableAs
             type="button"
             className="rounded-md bg-gray-50 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100"
             onClick={() => {
-                const csv = convertDataToCSV(JSON.parse(data));
-                const blob = new Blob([csv], { type: "text/csv" });
+                const csv = '\uFEFF' + convertDataToCSV(JSON.parse(data));
+                const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;

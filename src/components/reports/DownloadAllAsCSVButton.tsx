@@ -6,7 +6,7 @@ export default function DownloadAllAsCSVButton({ csv }: DownloadAllAsCSVButtonPr
             type="button"
             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={() => {
-                const blob = new Blob([csv], { type: "text/csv" });
+                const blob = new Blob(['\uFEFF' + csv], { type: "text/csv;charset=utf-8;" });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
